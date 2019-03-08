@@ -1,0 +1,48 @@
+{
+  "name": "type-iorm",
+  "version": "0.0.1",
+  "description": "typescript logger",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/potenstop/type-iorm"
+  },
+  "keywords": [
+    "typescript",
+    "orm"
+  ],
+  "files": [
+    "src",
+    "lib"
+  ],
+  "scripts": {
+    "build": "rimraf ./lib && tsc"
+  },
+  "author": "potenstop@163.com",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^11.9.5",
+    "generic-pool": "^3.6.1",
+    "reflect-metadata": "^0.1.13",
+    "type-interface": "0.0.2",
+    "type-slf4": "0.0.3"
+  },
+  "engines": {
+    "node": ">= 9.0.0"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^11.9.5",
+    "@types/should": "^13.0.0",
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
+    "mysql": "^2.16.0",
+    "rimraf": "^2.6.3",
+    "should": "^13.2.3",
+    "ts-node": "^7.0.1",
+    "tslint": "^5.11.0",
+    "typescript": "^3.2.2"
+  }
+}
