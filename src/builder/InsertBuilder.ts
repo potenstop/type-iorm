@@ -24,20 +24,21 @@ export class InsertBuilder<Entity> extends BaseBuilder<Entity> {
         logger.debug(`start insert builder bid=${this.bid}`);
     }
     public getQuery(): string {
-        const sql = this.createInsertExpression();
-        return sql.trim();
+        return this.createInsertExpression();
     }
     /**
      * 方法功能描述: 执行sql
      * @author yanshaowen
      * @date 2019/3/7 16:41
-     * @return
+     * @return  插入的id 如果不是自增 则返回0
      */
-    public async execute(): Promise<any> {
+    public async execute(): Promise<number> {
         const query = this.getQuery();
         this.mid = GenerateUtil.getMd5(query);
         logger.debug(`start insert execute bid=${this.bid},mid=${this.mid},sql=${query}`);
-        return this.connection.query(query);
+        const insertResult = await this.connection.query(query);
+        logger.debug(`end insert execute bid=${this.bid},mid=${this.mid}, insertResult=${JSON.stringify(insertResult)}`);
+        return insertResult.insertId;
     }
     /**
      * 方法功能描述: 根据实体new builder

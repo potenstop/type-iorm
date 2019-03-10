@@ -49,6 +49,7 @@ describe("测试 InsertBuilder", () => {
     it("insert values", async () => {
         const connection = await dataSource.getConnection();
         const shellTask = new ShellTask();
+        shellTask.shellTemplateId = 1;
         shellTask.createTime = new Date();
         const result = await InsertBuilder
             .into(ShellTask)
