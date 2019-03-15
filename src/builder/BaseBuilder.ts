@@ -6,6 +6,7 @@ import {MetaConstant} from "../constants/MetaConstant";
 import {SqlBuilderError} from "../error/SqlBuilderError";
 import {ColumnMeta} from "../model/ColumnMeta";
 import {ObjectType} from "../type/ObjectType";
+import {CriteriaBuilder} from "./CriteriaBuilder";
 /**
  *
  * 功能描述:基础构建
@@ -18,6 +19,8 @@ import {ObjectType} from "../type/ObjectType";
 export abstract class BaseBuilder<Entity> {
     // 当前的实体
     protected entity: ObjectType<Entity>;
+    // 别名
+    protected asTableName: string;
     // 对应的连接
     protected connection: ISqlConnection;
     // 查询表达式类
@@ -28,8 +31,9 @@ export abstract class BaseBuilder<Entity> {
     protected mid: string;
     // 构建sql的代码 方便排除问题
     protected buildCode: string;
-    constructor(entityTarget: ObjectType<Entity>) {
+    constructor(entityTarget: ObjectType<Entity>, asTableName) {
         this.entity = entityTarget;
+        this.asTableName = asTableName;
         this.expression = new QueryExpression();
         this.bid = GenerateUtil.getRandomId();
     }

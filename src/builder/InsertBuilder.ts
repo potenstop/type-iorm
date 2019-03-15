@@ -19,8 +19,8 @@ import {ObjectType} from "../type/ObjectType";
  */
 const logger = LoggerFactory.getLogger("type-iorm.builder.InsertBuilder");
 export class InsertBuilder<Entity> extends BaseBuilder<Entity> {
-    constructor(entityTarget: ObjectType<Entity> ) {
-        super(entityTarget);
+    constructor(entityTarget: ObjectType<Entity>, asTableName: string) {
+        super(entityTarget, asTableName);
         logger.debug(`start insert builder bid=${this.bid}`);
     }
     public getQuery(): string {
@@ -40,15 +40,18 @@ export class InsertBuilder<Entity> extends BaseBuilder<Entity> {
         logger.debug(`end insert execute bid=${this.bid},mid=${this.mid}, insertResult=${JSON.stringify(insertResult)}`);
         return insertResult.insertId;
     }
+    public static into<T>(entityTarget: ObjectType<T>);
+    public static into<T>(entityTarget: ObjectType<T>, asName: string);
     /**
      * 方法功能描述: 根据实体new builder
      * @author yanshaowen
      * @date 2019/3/7 16:42
      * @param entityTarget    数据实体
+     * @param asName
      * @return
      */
-    public static into<T>(entityTarget: ObjectType<T>) {
-        return new InsertBuilder<T>(entityTarget);
+    public static into<T>(entityTarget: ObjectType<T>, asName?: string) {
+        return new InsertBuilder<T>(entityTarget, asName);
     }
     /**
      * 方法功能描述: insert多条或一条

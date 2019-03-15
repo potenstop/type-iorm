@@ -1,5 +1,8 @@
-import {InsertBuilder} from "../../../src/builder/InsertBuilder";
+import {UpdateBuilder} from "../../../src/builder/UpdateBuilder";
 import {DataSource} from "../../../src/connection/DataSource";
+import {Entity} from "../../../src/annotation/entity/Entity";
+import {PrimaryGeneratedColumn} from "../../../src/annotation/column/PrimaryGeneratedColumn";
+import {Column} from "../../../src/annotation/column/Column";
 import {ShellTask} from "./ShellTask";
 
 const dataSource = new DataSource();
@@ -17,11 +20,15 @@ describe("测试 InsertBuilder", () => {
         const shellTask = new ShellTask();
         shellTask.shellTemplateId = 1;
         shellTask.createTime = new Date();
-        const result = await InsertBuilder
+        const result = await UpdateBuilder
             .into(ShellTask)
             .setConnection(connection)
-            .values(shellTask)
-            .execute();
+            .set(shellTask)
+            .where()
         console.log(result);
     });
 })
+
+function f(k: any) {
+    console.log(k);
+}
