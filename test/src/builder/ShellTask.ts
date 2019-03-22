@@ -2,6 +2,7 @@ import {Entity} from "../../../src/annotation/entity/Entity";
 import {AbstractTable} from "../../../src/splicer/impl/AbstractTable";
 import {PrimaryGeneratedColumn} from "../../../src/annotation/column/PrimaryGeneratedColumn";
 import {Column} from "../../../src/annotation/column/Column";
+import {SqlDataType} from "../../../src/splicer/impl/SqlDataType";
 
 /**
  *
@@ -14,8 +15,10 @@ import {Column} from "../../../src/annotation/column/Column";
  */
 @Entity("shell_task")
 export class ShellTask {
-    public static SHELL_TASK_ID = AbstractTable.createField("shell_task_id");
-
+    public static SHELL_TASK_ID = AbstractTable.createField<number>(SqlDataType.VARCHAR, "shell_task_id");
+    public static CREATE_TIME = AbstractTable.createField<Date>(SqlDataType.DATETIME, "create_time");
+    public static UPDATE_TIME = AbstractTable.createField<Date>(SqlDataType.DATETIME, "update_time");
+    public static SHELL_TEMPLATE_ID = AbstractTable.createField<number>(SqlDataType.INTEGER, "shell_template_id");
     @PrimaryGeneratedColumn("shell_task_id")
     public shellTaskId: number;
 

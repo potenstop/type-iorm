@@ -83,15 +83,43 @@ export class MysqlConnection implements ISqlConnection {
         return undefined;
     }
 
-    public query(sql: string): Promise<any> {
+    public query(sql: string, params?: any[], timeout?: number): Promise<any> {
+        if (!params) {
+            params = [];
+        }
         return new Promise<any>((resolve, reject) => {
-            this.sourceConnection.query(sql, [], (err, result) => {
+            this.sourceConnection.query({
+                sql,
+                values: params,
+                timeout,
+            }, function(err, result, fields) {
                 if (err) {
                     reject(err);
                 } else {
                     resolve(result);
                 }
             });
+            /*this.sourceConnection.query({
+                sql,
+                values: params,
+                timeout,
+            }).on("error", (err) => {
+                reject(err);
+            }).on("fields", (fields) => {
+                console.log(fields);
+                return fields;
+            }).on("result", (row) => {
+                console.log(row);
+            }).on("end", (a) => {
+                resolve([]);
+            });*/
+            /*this.sourceConnection.query(sql, [], (err, result) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(result);
+                }
+            });*/
         });
 
     }

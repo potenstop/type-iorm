@@ -11,4 +11,6 @@ import {IConnection} from "type-interface";
 
 export interface ISqlConnection extends IConnection {
     query(sql: string): Promise<any>;
+    query(sql: string, params: any[]): Promise<any>;
+    query(sql: string, params: any[], timeout: number): Promise<any>;
 }

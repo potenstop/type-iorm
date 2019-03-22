@@ -9,6 +9,6 @@
  */
 import {IField} from "./IField";
 
-export interface ITableField extends IField {
+export interface ITableField<T> extends IField<T> {
     getTable(): string;
 }

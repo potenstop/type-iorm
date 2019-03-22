@@ -9,9 +9,10 @@
  */
 import {FieldImpl} from "./FieldImpl";
 import {IField} from "../IField";
+import {IDataType} from "../IDataType";
 
 export class AbstractTable {
-    public static createField(name: string): IField {
-        return new FieldImpl();
+    public static createField<T>(dataType: IDataType<T>, name: string): IField<T> {
+        return new FieldImpl<T>(dataType, name);
     }
 }

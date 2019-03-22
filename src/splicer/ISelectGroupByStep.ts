@@ -11,5 +11,5 @@ import {ISelectHavingStep} from "./ISelectHavingStep";
 import {IField} from "./IField";
 
 export interface ISelectGroupByStep<T> extends ISelectHavingStep<T> {
-    groupBy(...fields: IField[]): ISelectHavingStep<T>;
+    groupBy(...fields: Array<IField<T>>): ISelectHavingStep<T>;
 }

@@ -1,7 +1,10 @@
 import {ISqlConnection} from "../driver/ISqlConnection";
 import {IField} from "../splicer/IField";
-import {DSLContext} from "./DSLContext";
-
+import {DefaultDSLContext} from "../splicer/impl/DefaultDSLContext";
+import {ObjectType} from "../type/ObjectType";
+import {IInsertSetStep} from "../splicer/IInsertSetStep";
+import {IUpdateSetStep} from "../splicer/IUpdateSetStep";
+import {IDeleteWhereStep} from "../splicer/IDeleteWhereStep";
 /**
  *
  * 功能描述:
@@ -13,15 +16,21 @@ import {DSLContext} from "./DSLContext";
  */
 export class DSL {
     public static using(connection: ISqlConnection) {
-        return new DSLContext();
+        return new DefaultDSLContext();
     }
     private static dsl() {
         return DSL.using(null);
     }
-    public static select(...field: IField[]) {
-        DSL.dsl().select();
+    public static select<T>(...field: Array<IField<T>>) {
+        return DSL.dsl().select(...field);
     }
-    public static insert() {
-
+    public static insertInto<T>(table: ObjectType<T>): IInsertSetStep<T> {
+        return DSL.dsl().insertInto(table);
+    }
+    public static update<T>(table: ObjectType<T>): IUpdateSetStep<T> {
+        return DSL.dsl().update(table);
+    }
+    public static delete<T>(table: ObjectType<T>): IDeleteWhereStep<T> {
+        return DSL.dsl().delete(table);
     }
 }

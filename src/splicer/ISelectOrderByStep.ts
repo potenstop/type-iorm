@@ -11,5 +11,5 @@ import {ISelectLimitStep} from "./ISelectLimitStep";
 import {IField} from "./IField";
 
 export interface ISelectOrderByStep<T> extends ISelectLimitStep<T> {
-    orderBy(... fields: IField[]);
+    orderBy(... fields: Array<IField<T>>);
 }

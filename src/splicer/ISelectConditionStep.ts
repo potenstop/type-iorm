@@ -11,26 +11,26 @@ import {ISelectGroupByStep} from "./ISelectGroupByStep";
 import {ICondition} from "./ICondition";
 import {ISelect} from "./ISelect";
 
-export interface ISelectConditionStep extends ISelectGroupByStep {
-    and(condition: ICondition): ISelectConditionStep;
-    and(sql: string): ISelectConditionStep;
-    and(sql: string, ...args: any[]): ISelectConditionStep;
+export interface ISelectConditionStep<T> extends ISelectGroupByStep<T> {
+    and(condition: ICondition): ISelectConditionStep<T>;
+    and(sql: string): ISelectConditionStep<T>;
+    and(sql: string, ...args: any[]): ISelectConditionStep<T>;
 
-    andNot(condition: ICondition): ISelectConditionStep;
-    andNot(sql: string): ISelectConditionStep;
-    andNot(sql: string, ...args: any[]): ISelectConditionStep;
+    andNot(condition: ICondition): ISelectConditionStep<T>;
+    andNot(sql: string): ISelectConditionStep<T>;
+    andNot(sql: string, ...args: any[]): ISelectConditionStep<T>;
 
-    andExists(select: ISelect): ISelectConditionStep;
-    andNotExists(select: ISelect): ISelectConditionStep;
+    andExists(select: ISelect<T>): ISelectConditionStep<T>;
+    andNotExists(select: ISelect<T>): ISelectConditionStep<T>;
 
-    or(condition: ICondition): ISelectConditionStep;
-    or(sql: string): ISelectConditionStep;
-    or(sql: string, ...args: any[]): ISelectConditionStep;
+    or(condition: ICondition): ISelectConditionStep<T>;
+    or(sql: string): ISelectConditionStep<T>;
+    or(sql: string, ...args: any[]): ISelectConditionStep<T>;
 
-    orNot(condition: ICondition): ISelectConditionStep;
-    orNot(sql: string): ISelectConditionStep;
-    orNot(sql: string, ...args: any[]): ISelectConditionStep;
+    orNot(condition: ICondition): ISelectConditionStep<T>;
+    orNot(sql: string): ISelectConditionStep<T>;
+    orNot(sql: string, ...args: any[]): ISelectConditionStep<T>;
 
-    orExists(select: ISelect): ISelectConditionStep;
-    orNotExists(select: ISelect): ISelectConditionStep;
+    orExists(select: ISelect<T>): ISelectConditionStep<T>;
+    orNotExists(select: ISelect<T>): ISelectConditionStep<T>;
 }

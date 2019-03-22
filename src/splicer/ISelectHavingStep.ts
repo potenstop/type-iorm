@@ -12,7 +12,7 @@ import {ICondition} from "./ICondition";
 import {ISelectHavingConditionStep} from "./ISelectHavingConditionStep";
 
 export interface ISelectHavingStep<T> extends ISelectOrderByStep<T> {
-    having(...condition: ICondition[]): ISelectHavingConditionStep;
-    having(sql: string): ISelectHavingConditionStep;
-    having(sql: string, ...args: any[]): ISelectHavingConditionStep;
+    having(...condition: ICondition[]): ISelectHavingConditionStep<T>;
+    having(sql: string): ISelectHavingConditionStep<T>;
+    having(sql: string, ...args: any[]): ISelectHavingConditionStep<T>;
 }

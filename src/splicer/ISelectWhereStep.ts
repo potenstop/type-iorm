@@ -13,10 +13,10 @@ import {ISelect} from "./ISelect";
  * @date 2019/3/11 18:03
  */
 export interface ISelectWhereStep<T> extends ISelectGroupByStep<T> {
-    where(...condition: ICondition[]): ISelectConditionStep;
-    where(sql: string): ISelectConditionStep;
-    where(sql: string, ...args: any[]): ISelectConditionStep;
-    whereExists(select: ISelect<T>): ISelectConditionStep;
-    whereNotExists(select: ISelect<T>): ISelectConditionStep;
+    where(...condition: ICondition[]): ISelectConditionStep<T>;
+    where(sql: string): ISelectConditionStep<T>;
+    where(sql: string, ...args: any[]): ISelectConditionStep<T>;
+    whereExists(select: ISelect<T>): ISelectConditionStep<T>;
+    whereNotExists(select: ISelect<T>): ISelectConditionStep<T>;
 
 }
