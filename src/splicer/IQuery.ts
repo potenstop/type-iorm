@@ -8,6 +8,7 @@
  * @date 2019/3/20 16:08
  */
 import {IStatement} from "./IStatement";
+import {IContext} from "./IContext";
 
 export interface IQuery extends IStatement {
     execute(): Promise<number>;

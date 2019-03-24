@@ -10,20 +10,46 @@
 import {IField} from "../IField";
 import {ICondition} from "../ICondition";
 import {IDataType} from "../IDataType";
+import {IConverter} from "../IConverter";
 
 export class FieldImpl<T> implements IField<T> {
+    private name: string;
     constructor(dataType: IDataType<T>, name: string) {
-
+        this.name = name;
     }
     public as(alias: string): IField<T> {
-        return undefined;
+        this.name = alias;
+        return this;
     }
 
     public getName(): string {
-        return "";
+        return this.name;
     }
 
     public eq(field: T): ICondition {
+        return undefined;
+    }
+    public equals(value: any): boolean {
+        if (value === this) {
+            return true;
+        } else {
+            return typeof value.getName === "function" && this.getName() === value.getName();
+        }
+    }
+
+    public hashCode(): number {
+        return 0;
+    }
+
+    public getConverter(): IConverter<any, any> {
+        return undefined;
+    }
+
+    public getDataType(): IDataType<T> {
+        return undefined;
+    }
+
+    public getType(): Object {
         return undefined;
     }
 }

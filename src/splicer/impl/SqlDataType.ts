@@ -13,11 +13,11 @@ export class SqlDataType {
     public static readonly VARCHAR = new DefaultDataType<string>(String, "varchar");
     public static readonly CHAR = new DefaultDataType<string>(String, "char");
     public static readonly LONGVARCHAR = new DefaultDataType<string>(String, "longvarchar");
-    public static readonly CLOB = new DefaultDataType<string>(String, "clob");
+    public static readonly CLOB = new DefaultDataType<Buffer>(Buffer, "clob");
     public static readonly NVARCHAR = new DefaultDataType<string>(String, "nvarchar");
     public static readonly NCHAR = new DefaultDataType<string>(String, "nchar");
     public static readonly LONGNVARCHAR = new DefaultDataType<string>(String, "longnvarchar");
-    public static readonly NCLOB = new DefaultDataType<string>(String, "nclob");
+    public static readonly NCLOB = new DefaultDataType<Buffer>(Buffer, "nclob");
     public static readonly BOOLEAN = new DefaultDataType<boolean>(Boolean, "boolean");
     public static readonly BIT = new DefaultDataType<boolean>(Boolean, "bit");
     public static readonly TINYINT = new DefaultDataType<number>(Number, "tinyint");

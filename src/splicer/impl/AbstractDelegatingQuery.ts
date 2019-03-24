@@ -9,6 +9,7 @@
  */
 import {AbstractQueryPart} from "./AbstractQueryPart";
 import {IQuery} from "../IQuery";
+import {AbstractStoreQuery} from "./AbstractStoreQuery";
 
 export abstract class AbstractDelegatingQuery<Q extends IQuery> extends AbstractQueryPart implements IQuery {
     private readonly delegate: Q;
@@ -16,7 +17,7 @@ export abstract class AbstractDelegatingQuery<Q extends IQuery> extends Abstract
         super();
         this.delegate = delegate;
     }
-    public execute(): Promise<number> {
+    public execute() {
         return this.delegate.execute();
     }
 
@@ -28,8 +29,11 @@ export abstract class AbstractDelegatingQuery<Q extends IQuery> extends Abstract
         return this.delegate.queryTimeout(seconds);
     }
 
-    public isExecute(): boolean {
-        return this.delegate.isExecute();
+    public isExecutable(): boolean {
+        return this.delegate.isExecutable();
+    }
+    public getDelegate(): Q {
+        return this.delegate;
     }
 
 }

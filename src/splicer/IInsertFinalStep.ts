@@ -10,7 +10,7 @@
 import {IInsert} from "./IInsert";
 import {IChangeResult} from "./IChangeResult";
 export interface IInsertFinalStep<T> extends IInsert<T> {
-    getInsertId(): number;
-    getAffectedRow(): number;
-    getResult(): IChangeResult;
+    getInsertId(): Promise<number>;
+    getAffectedRow(): Promise<number>;
+    getResult(): Promise<IChangeResult>;
 }

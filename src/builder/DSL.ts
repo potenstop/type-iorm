@@ -16,10 +16,10 @@ import {IDeleteWhereStep} from "../splicer/IDeleteWhereStep";
  */
 export class DSL {
     public static using(connection: ISqlConnection) {
-        return new DefaultDSLContext();
+        return new DefaultDSLContext(connection);
     }
-    private static dsl() {
-        return DSL.using(null);
+    private static dsl(connection?: ISqlConnection) {
+        return DSL.using(connection);
     }
     public static select<T>(...field: Array<IField<T>>) {
         return DSL.dsl().select(...field);

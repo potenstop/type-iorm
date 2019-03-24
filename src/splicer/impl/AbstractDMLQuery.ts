@@ -10,12 +10,14 @@
 import {AbstractQuery} from "./AbstractQuery";
 import {ObjectType} from "../../type/ObjectType";
 import {IResult} from "../IResult";
+import {IContext} from "../IContext";
+import {ISqlConnection} from "../../driver/ISqlConnection";
 
-export class AbstractDMLQuery<T> extends AbstractQuery {
+export abstract class AbstractDMLQuery<T> extends AbstractQuery {
     private returnedResult: IResult<any>;
     private table: ObjectType<T>;
-    constructor(table: ObjectType<T>) {
-        super();
+    constructor(connection: ISqlConnection, table: ObjectType<T>) {
+        super(connection);
         this.table = table;
     }
     public getResult(): IResult<any> {
@@ -24,4 +26,5 @@ export class AbstractDMLQuery<T> extends AbstractQuery {
         }
         return this.returnedResult;
     }
+    public abstract accept(ctx: IContext): void;
 }

@@ -17,18 +17,28 @@ describe("测试 DSL", () => {
             .from(ShellTask)
             .where(ShellTask.SHELL_TASK_ID.eq(1))
             .and(ShellTask.CREATE_TIME.eq(new Date("1111"))).fetchOne();
-        const into = iResult.into(A);
     });
     it("insert", async () => {
-        await DSL.insertInto(ShellTask).columns(ShellTask.CREATE_TIME).values(1, 2).getResult();
+        const connection = await dataSource.getConnection();
+        const iChangeResult = await DSL.using(connection)
+            .insertInto(ShellTask)
+            .columns(ShellTask.CREATE_TIME, ShellTask.SHELL_TEMPLATE_ID)
+            .values(new Date(), 1)
+            .values(new Date(), 2)
+            .values(new Date(), 3)
+            .getResult();
+        console.log(iChangeResult);
     });
     it("update", async () => {
         await DSL.update(ShellTask).set(ShellTask.CREATE_TIME, new Date()).where().getAffectedRow();
+
     });
     it("delete", async () => {
        await DSL.delete(ShellTask).where().getAffectedRow();
     });
-});
-class A {
+    it("buff", async () => {
+        const buf5 = Buffer.from("tést");
+        console.log(buf5);
 
-}
+    });
+});

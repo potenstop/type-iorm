@@ -12,15 +12,15 @@ import {IStoreQuery} from "../IStoreQuery";
 import {IField} from "../IField";
 import {IResult} from "../IResult";
 import {ObjectType} from "../../type/ObjectType";
+import {ISqlConnection} from "../../driver/ISqlConnection";
 
-export class AbstractStoreQuery<T> extends AbstractDMLQuery<T> implements IStoreQuery<T> {
-    constructor(table: ObjectType<T>) {
-        super(table);
+export abstract class AbstractStoreQuery<T> extends AbstractDMLQuery<T> implements IStoreQuery<T> {
+    constructor(connection: ISqlConnection, table: ObjectType<T>) {
+        super(connection, table);
     }
-    public addValue(field: IField<T>, value: T): void;
-    public addValue(field: IField<T>, value: IField<T>): void;
-    public addValue(map: Map<any, any>): void;
-    public addValue(field: IField<T> | Map<any, any>, value?: T | IField<T>): void {
+    protected abstract getValues(): Map<IField<any>, Object>;
 
+    public addValue<F>(field: IField<F>, value: F): void {
+        this.getValues().set(field, value);
     }
 }

@@ -1,9 +1,20 @@
 # type-iorm
+```text
+
+InsertQueryImpl
+AbstractDMLQuery
 QueryPart
-    SelectFieldOrAsterisk
-        SelectField
+    Named
+        FieldOrConstraint
+    SelectField    
+    GroupField
+    OrderField
     FieldOrRow
         Field
+        Row
+    SelectFieldOrAsterisk
+        SelectField
+        
     Statement
         Query
             StoreQuery
@@ -39,3 +50,4 @@ QueryPart
                                                             SelectSelectStep
                                                 
  
+```

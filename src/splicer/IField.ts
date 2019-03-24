@@ -10,8 +10,11 @@
 import {ICondition} from "./ICondition";
 import {IFieldOrRow} from "./IFieldOrRow";
 import {ISelectField} from "./ISelectField";
+import {IOrderField} from "./IOrderField";
+import {IGroupField} from "./IGroupField";
+import {IFieldOrConstraint} from "./IFieldOrConstraint";
 
-export interface IField<T> extends IFieldOrRow, ISelectField {
+export interface IField<T> extends ISelectField<T>, IOrderField, IGroupField, IFieldOrRow, IFieldOrConstraint {
     // 数据库字段名称 设置了别名则获取别名的名称
     getName(): string;
     as(alias: string): IField<T>;

@@ -12,8 +12,6 @@ import {IField} from "./IField";
 import {IResult} from "./IResult";
 
 export interface IStoreQuery<T> extends IQuery {
-    addValue(field: IField<T>, value: T): void;
-    addValue(field: IField<T>, value: IField<T>): void;
-    addValue(map: Map<any, any>): void;
+    addValue<F>(field: IField<F>, value: F): void;
     getResult(): IResult<any> ;
 }

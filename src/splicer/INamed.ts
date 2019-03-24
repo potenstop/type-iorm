@@ -2,13 +2,13 @@
  *
  * 功能描述:
  *
- * @className IStatement
+ * @className Named
  * @projectName type-iorm
  * @author yanshaowen
- * @date 2019/3/20 16:07
+ * @date 2019/3/23 20:41
  */
 import {IQueryPart} from "./IQueryPart";
 
-export interface IStatement extends IQueryPart {
-
+export interface INamed extends IQueryPart {
+    getName(): string;
 }

@@ -1,7 +1,7 @@
 import {LoggerFactory} from "type-slf4";
 import {BaseBuilder} from "./BaseBuilder";
 import {ObjectType} from "../type/ObjectType";
-import {SelectWhereStepImpl} from "../splicer/impl/SelectWhereStepImpl";
+// import {SelectWhereStepImpl} from "../splicer/impl/SelectWhereStepImpl";
 
 /**
  *
@@ -37,7 +37,7 @@ export class UpdateBuilder <Entity> extends BaseBuilder<Entity> {
         return this;
     }
     public where() {
-        return new SelectWhereStepImpl().where();
+        // return new SelectWhereStepImpl().where();
     }
     /**
      * 方法功能描述: 创建update语句表达式

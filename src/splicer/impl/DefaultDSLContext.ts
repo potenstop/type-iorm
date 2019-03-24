@@ -8,6 +8,7 @@ import {ISelectFieldOrAsterisk} from "../ISelectFieldOrAsterisk";
 import {IUpdateSetStep} from "../IUpdateSetStep";
 import {IDeleteWhereStep} from "../IDeleteWhereStep";
 import {InsertImpl} from "./InsertImpl";
+import {ISqlConnection} from "../../driver/ISqlConnection";
 
 /**
  *
@@ -19,8 +20,13 @@ import {InsertImpl} from "./InsertImpl";
  * @date 2019/3/13 20:16
  */
 export class DefaultDSLContext implements IDSLContext {
+    private connection: ISqlConnection;
+    constructor(connection: ISqlConnection) {
+        this.connection = connection;
+    }
+
     public insertInto<T>(table: ObjectType<T>): IInsertSetStep<T> {
-        return new InsertImpl();
+        return new InsertImpl(this.connection, table);
     }
 
     public select(...field: ISelectFieldOrAsterisk[]): ISelectSelectStep<any> {

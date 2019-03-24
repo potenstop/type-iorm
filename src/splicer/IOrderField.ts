@@ -2,13 +2,13 @@
  *
  * 功能描述:
  *
- * @className IStatement
+ * @className IOrderField
  * @projectName type-iorm
  * @author yanshaowen
- * @date 2019/3/20 16:07
+ * @date 2019/3/23 20:44
  */
 import {IQueryPart} from "./IQueryPart";
 
-export interface IStatement extends IQueryPart {
+export interface IOrderField extends IQueryPart {
 
 }

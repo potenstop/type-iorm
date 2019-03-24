@@ -11,15 +11,17 @@ import {IInsertSetStep} from "../IInsertSetStep";
 import {IField} from "../IField";
 import {IInsertValuesStep} from "../IInsertValuesStep";
 import {IChangeResult} from "../IChangeResult";
-import {IQuery} from "../IQuery";
 import {ObjectType} from "../../type/ObjectType";
 import {AbstractDelegatingQuery} from "./AbstractDelegatingQuery";
 import {IInsertQuery} from "../IInsertQuery";
+import {InsertQueryImpl} from "./InsertQueryImpl";
+import {ISqlConnection} from "../../driver/ISqlConnection";
 
 export class InsertImpl<T> extends AbstractDelegatingQuery<IInsertQuery<T>> implements IInsertSetStep<T>, IInsertValuesStep<T> {
     private into: ObjectType<T>;
     private fields: Array<IField<any>> ;
-    constructor(into: ObjectType<T>) {
+    constructor(connection: ISqlConnection, into: ObjectType<T>) {
+        super(new InsertQueryImpl(connection, into));
         this.into = into;
     }
 
@@ -27,21 +29,27 @@ export class InsertImpl<T> extends AbstractDelegatingQuery<IInsertQuery<T>> impl
         this.fields = field;
         return this;
     }
-
-    public getAffectedRow(): number {
+    public async getAffectedRow(): Promise<number> {
         return 0;
     }
 
-    public getInsertId(): number {
+    public async getInsertId(): Promise<number> {
         return 0;
     }
 
-    public getResult(): IChangeResult {
+    public async getResult(): Promise<IChangeResult> {
+        await this.execute();
         return undefined;
     }
-
     public values(...value: any): IInsertValuesStep<T> {
-        return undefined;
+        if (this.fields.length > 0 && this.fields.length !== value.length) {
+            throw new Error("The number of values must match the number of fields");
+        }
+        if (this.fields.length === 0) {
+            value.forEach((v) =>  this.getDelegate().addValue(null as IField<void>, v));
+        } else {
+            this.fields.forEach((field, i) =>  this.getDelegate().addValue(field, value[i]));
+        }
+        return this;
     }
-
 }

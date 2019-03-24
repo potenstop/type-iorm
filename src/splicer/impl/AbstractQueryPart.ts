@@ -9,6 +9,7 @@
  */
 import {IQueryPartInternal} from "../IQueryPartInternal";
 import {IQueryPart} from "../IQueryPart";
+import {IContext} from "../IContext";
 
 export abstract class AbstractQueryPart implements IQueryPartInternal {
     public declaresFields(): boolean {
