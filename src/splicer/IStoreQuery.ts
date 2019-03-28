@@ -13,5 +13,6 @@ import {IResult} from "./IResult";
 
 export interface IStoreQuery<T> extends IQuery {
     addValue<F>(field: IField<F>, value: F): void;
+    addValues(map: Map<string, any>): void;
     getResult(): IResult<any> ;
 }

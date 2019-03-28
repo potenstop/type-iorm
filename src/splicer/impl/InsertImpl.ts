@@ -16,6 +16,7 @@ import {AbstractDelegatingQuery} from "./AbstractDelegatingQuery";
 import {IInsertQuery} from "../IInsertQuery";
 import {InsertQueryImpl} from "./InsertQueryImpl";
 import {ISqlConnection} from "../../driver/ISqlConnection";
+import {SqlBuilderError} from "../../error/SqlBuilderError";
 
 export class InsertImpl<T> extends AbstractDelegatingQuery<IInsertQuery<T>> implements IInsertSetStep<T>, IInsertValuesStep<T> {
     private into: ObjectType<T>;
@@ -30,16 +31,22 @@ export class InsertImpl<T> extends AbstractDelegatingQuery<IInsertQuery<T>> impl
         return this;
     }
     public async getAffectedRow(): Promise<number> {
-        return 0;
+        const result = await this.getResult();
+        return result.affectedRows;
     }
 
     public async getInsertId(): Promise<number> {
-        return 0;
+        const result = await this.getResult();
+        return result.insertId;
     }
 
     public async getResult(): Promise<IChangeResult> {
-        await this.execute();
-        return undefined;
+        const ctx = await this.execute();
+        if (ctx) {
+            return ctx.getSourceResult() as IChangeResult;
+        } else {
+            throw new SqlBuilderError("sql error");
+        }
     }
     public values(...value: any): IInsertValuesStep<T> {
         if (this.fields.length > 0 && this.fields.length !== value.length) {

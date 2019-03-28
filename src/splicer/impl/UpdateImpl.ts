@@ -12,16 +12,27 @@ import {IUpdateConditionStep} from "../IUpdateConditionStep";
 import {ICondition} from "../ICondition";
 import {ISelect} from "../ISelect";
 import {IChangeResult} from "../IChangeResult";
-import {IQuery} from "../IQuery";
 import {IUpdateWhereStep} from "../IUpdateWhereStep";
 import {IField} from "../IField";
+import {AbstractDelegatingQuery} from "./AbstractDelegatingQuery";
+import {IUpdateQuery} from "../IUpdateQuery";
+import {ObjectType} from "../../type/ObjectType";
+import {ISqlConnection} from "../../driver/ISqlConnection";
+import {UpdateQueryImpl} from "./UpdateQueryImpl";
 
-export class UpdateImpl<T> implements IUpdateSetStep<T>, IUpdateConditionStep<T> {
+export class UpdateImpl<T> extends AbstractDelegatingQuery<IUpdateQuery<T>> implements IUpdateSetStep<T>, IUpdateConditionStep<T>, IUpdateWhereStep<T> {
+    private table: ObjectType<T>;
+    constructor(connection: ISqlConnection, table: ObjectType<T>) {
+        super(new UpdateQueryImpl(connection, table));
+        this.table = table;
+    }
     public and(condition: ICondition): IUpdateConditionStep<T>;
     public and(sql: string): IUpdateConditionStep<T>;
     public and(sql: string, ...args: any[]): IUpdateConditionStep<T>;
     public and(condition: ICondition | string, ...args: any[]): IUpdateConditionStep<T> {
-        return undefined;
+        (this.getDelegate() as IUpdateQuery<T>)
+
+        return this;
     }
 
     public andExists(select: ISelect<any>): IUpdateConditionStep<T> {
@@ -39,14 +50,6 @@ export class UpdateImpl<T> implements IUpdateSetStep<T>, IUpdateConditionStep<T>
         return undefined;
     }
 
-    public equals(value: any): boolean {
-        return false;
-    }
-
-    public execute(): Promise<number> {
-        return undefined;
-    }
-
     public getAffectedRow(): number {
         return 0;
     }
@@ -57,14 +60,6 @@ export class UpdateImpl<T> implements IUpdateSetStep<T>, IUpdateConditionStep<T>
 
     public getResult(): IChangeResult {
         return undefined;
-    }
-
-    public getSQL(): string {
-        return "";
-    }
-
-    public hashCode(): number {
-        return 0;
     }
 
     public or(condition: IUpdateConditionStep<T>): IUpdateConditionStep<T>;
@@ -89,14 +84,30 @@ export class UpdateImpl<T> implements IUpdateSetStep<T>, IUpdateConditionStep<T>
         return undefined;
     }
 
-    public queryTimeout(seconds: number): IQuery {
-        return undefined;
-    }
-
     public set<R>(field: IField<R>, value: R): IUpdateWhereStep<T>;
-    public set(map: Map<any, any>): IUpdateWhereStep<T>;
-    public set(field, value?): IUpdateWhereStep<T> {
+    public set(map: Map<string, any>): IUpdateWhereStep<T>;
+    public set<R>(field: IField<R> | Map<string, any>, value?: R): IUpdateWhereStep<T> {
+        if (field instanceof Map) {
+            this.getDelegate().addValues(field);
+        } else {
+            this.getDelegate().addValue(field, value);
+        }
+        return this;
+
+    }
+
+    public where(...condition: ICondition[]): IUpdateConditionStep<T>;
+    public where(sql: string): IUpdateConditionStep<T>;
+    public where(sql: string, ...args: any[]): IUpdateConditionStep<T>;
+    public where(...condition: Array<ICondition | string | any>): IUpdateConditionStep<T> {
         return undefined;
     }
 
+    public whereExists(select: ISelect<T>): IUpdateConditionStep<T> {
+        return undefined;
+    }
+
+    public whereNotExists(select: ISelect<T>): IUpdateConditionStep<T> {
+        return undefined;
+    }
 }

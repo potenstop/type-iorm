@@ -12,8 +12,7 @@ import {ObjectType} from "../../type/ObjectType";
 import {IField} from "../IField";
 import {IContext} from "../IContext";
 import {DateUtil} from "../../util/DateUtil";
-import "reflect-metadata";
-import {MetaConstant} from "../../constants/MetaConstant";
+import {Tool} from "./Tool";
 
 export class FieldMapsForInsert extends AbstractQueryPart {
     private table: ObjectType<any>;
@@ -27,7 +26,7 @@ export class FieldMapsForInsert extends AbstractQueryPart {
         this.isNext = true;
         this.table = table;
         this.values = new Map<IField<any>, Object[]>();
-        this.tableName = Reflect.getOwnMetadata(MetaConstant.ENTITY, this.table) || this.table.constructor.name;
+        this.tableName = Tool.getTableName(this.table);
     }
     public getTableName() {
         return this.tableName;
@@ -124,6 +123,23 @@ export class FieldMapsForInsert extends AbstractQueryPart {
             });
             ctx.sql(")");
         }
+    }
+    public addFields(its: Iterator<string>) {
+        const stringIteratorResult = its.next();
+        if (stringIteratorResult && !stringIteratorResult.done) {
+            const key = stringIteratorResult.value;
+            const field = Tool.tableField(this.table, key);
+            if (field && !this.values.has(field)) {
+                this.values.set(field, []);
+            }
+        }
+    }
+    public set(map: Map<string, any>): void {
+        this.addFields(map.keys());
+        map.forEach(((value, key) => {
+            const field = Tool.tableField(this.table, key);
+            this.values.get(field).splice(this.row - 1, 0, value);
+        }));
     }
 
 }

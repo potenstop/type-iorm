@@ -13,4 +13,6 @@ import {IField} from "./IField";
 export interface IContext extends IScope {
     sql(sql: string): this;
     render(): string;
+    getSourceResult(): any;
+    setSourceResult(obj: any): void;
 }

@@ -23,4 +23,6 @@ export abstract class AbstractStoreQuery<T> extends AbstractDMLQuery<T> implemen
     public addValue<F>(field: IField<F>, value: F): void {
         this.getValues().set(field, value);
     }
+
+    public abstract addValues(map: Map<string, any>): void;
 }

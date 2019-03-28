@@ -13,6 +13,10 @@ import {LoggerFactory} from "type-slf4";
 import {DefaultContext} from "./DefaultContext";
 import {ISqlConnection} from "../../driver/ISqlConnection";
 import {SqlExecuteError} from "../../error/SqlExecuteError";
+import {IContext} from "../IContext";
+import {DriverEnum} from "../../enum/DriverEnum";
+import {IChangeResult} from "../IChangeResult";
+
 const logger = LoggerFactory.getLogger("type-iorm.splicer.impl.AbstractQueryPart");
 export abstract class AbstractQuery extends AbstractQueryPart implements IQuery {
     private timeout: number;
@@ -22,7 +26,7 @@ export abstract class AbstractQuery extends AbstractQueryPart implements IQuery 
         this.connection = connection;
     }
 
-    public async execute(): Promise<number> {
+    public async execute(): Promise<IContext> {
         const ctx = new DefaultContext();
         if (this.isExecutable()) {
             // 构建sql
@@ -32,14 +36,20 @@ export abstract class AbstractQuery extends AbstractQueryPart implements IQuery 
             }
             const sql = ctx.render();
             try {
-                await this.connection.query(sql, [], this.timeout);
+                const result = await this.connection.query(sql, [], this.timeout);
+                const insertResult: IChangeResult = {affectedRows: 0, insertId: 0};
+                if (this.connection.driver === DriverEnum.MYSQL) {
+                    insertResult.affectedRows = result.affectedRows;
+                    insertResult.insertId = result.insertId;
+                }
+                ctx.setSourceResult(insertResult);
             } catch (e) {
                 throw new SqlExecuteError(e.message);
             }
-            return 1;
+            return ctx;
         } else {
             logger.debug("Query is not executable");
-            return 0;
+            return null;
         }
     }
 

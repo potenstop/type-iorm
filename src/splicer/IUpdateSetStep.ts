@@ -12,5 +12,5 @@ import {IUpdateWhereStep} from "./IUpdateWhereStep";
 
 export interface IUpdateSetStep<T> {
     set<R>(field: IField<R>, value: R): IUpdateWhereStep<T>;
-    set(map: Map<any, any>): IUpdateWhereStep<T>;
+    set(map: Map<string, any>): IUpdateWhereStep<T>;
 }

@@ -27,6 +27,7 @@ QueryPart
                 UpdateFinalStep
                     UpdateConditionStep
                         UpdateWhereStep
+                UpdateQuery
             Delete
                 DeleteFinalStep
                     DeleteConditionStep

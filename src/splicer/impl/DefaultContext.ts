@@ -11,6 +11,7 @@ import {IContext} from "../IContext";
 import {IField} from "../IField";
 
 export class DefaultContext implements IContext {
+    private sourceResult: any;
     private sqlStr: string;
     constructor() {
         this.sqlStr = "";
@@ -21,5 +22,12 @@ export class DefaultContext implements IContext {
     }
     public render(): string {
         return this.sqlStr;
+    }
+
+    public getSourceResult() {
+        return this.sourceResult;
+    }
+    public setSourceResult(obj: any): void {
+        this.sourceResult = obj;
     }
 }

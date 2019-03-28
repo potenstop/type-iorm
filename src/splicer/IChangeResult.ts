@@ -9,5 +9,5 @@
  */
 export interface IChangeResult {
     insertId: number;
-    affectedRow: number;
+    affectedRows: number;
 }

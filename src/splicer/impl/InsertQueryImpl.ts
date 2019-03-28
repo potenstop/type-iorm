@@ -45,4 +45,8 @@ export class InsertQueryImpl<T> extends AbstractStoreQuery<T> implements IInsert
         this.insertMaps.toSQLReferenceKeys(ctx);
         this.insertMaps.toSQLValues(ctx);
     }
+
+    public addValues(map: Map<string, any>): void {
+        this.insertMaps.set(map);
+    }
 }

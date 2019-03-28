@@ -13,7 +13,10 @@ import {MysqlConnectionOption} from "./MysqlConnectionOption";
 import {TypeConvertUtil} from "../../util/TypeConvertUtil";
 import * as mysql from "mysql";
 import {ISqlConnection} from "../ISqlConnection";
+import {DriverEnum} from "../../enum/DriverEnum";
+
 export class MysqlConnection implements ISqlConnection {
+    public driver: DriverEnum = DriverEnum.MYSQL;
     public kind: "IConnection";
     public readonly options: any;
     public driverOption: MysqlConnectionOption;

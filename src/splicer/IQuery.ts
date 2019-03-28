@@ -11,7 +11,7 @@ import {IStatement} from "./IStatement";
 import {IContext} from "./IContext";
 
 export interface IQuery extends IStatement {
-    execute(): Promise<number>;
+    execute(): Promise<IContext>;
     isExecutable(): boolean;
     getSQL(): string;
     queryTimeout(seconds: number): IQuery;

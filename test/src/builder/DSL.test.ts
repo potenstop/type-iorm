@@ -30,7 +30,8 @@ describe("测试 DSL", () => {
         console.log(iChangeResult);
     });
     it("update", async () => {
-        await DSL.update(ShellTask).set(ShellTask.CREATE_TIME, new Date()).where().getAffectedRow();
+        const connection = await dataSource.getConnection();
+        await DSL.using(connection).update(ShellTask).set(ShellTask.CREATE_TIME, new Date()).where().getAffectedRow();
 
     });
     it("delete", async () => {

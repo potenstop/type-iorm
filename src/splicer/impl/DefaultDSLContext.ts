@@ -9,6 +9,7 @@ import {IUpdateSetStep} from "../IUpdateSetStep";
 import {IDeleteWhereStep} from "../IDeleteWhereStep";
 import {InsertImpl} from "./InsertImpl";
 import {ISqlConnection} from "../../driver/ISqlConnection";
+import {UpdateImpl} from "./UpdateImpl";
 
 /**
  *
@@ -38,7 +39,7 @@ export class DefaultDSLContext implements IDSLContext {
     }
 
     public update<T>(table: ObjectType<T>): IUpdateSetStep<T> {
-        return undefined;
+        return new UpdateImpl(this.connection, table);
     }
 
 }
