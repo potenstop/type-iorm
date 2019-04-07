@@ -31,7 +31,11 @@ describe("测试 DSL", () => {
     });
     it("update", async () => {
         const connection = await dataSource.getConnection();
-        await DSL.using(connection).update(ShellTask).set(ShellTask.CREATE_TIME, new Date()).where().getAffectedRow();
+        await DSL.using(connection)
+            .update(ShellTask)
+            .set(ShellTask.CREATE_TIME, new Date())
+            .where(ShellTask.SHELL_TEMPLATE_ID.eq(1))
+            .getAffectedRow();
 
     });
     it("delete", async () => {

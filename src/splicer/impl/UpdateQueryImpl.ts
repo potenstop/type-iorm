@@ -4,9 +4,9 @@ import {IContext} from "../IContext";
 import {IField} from "../IField";
 import {ISqlConnection} from "../../driver/ISqlConnection";
 import {ObjectType} from "../../type/ObjectType";
-import {FieldMapsForInsert} from "./FieldMapsForInsert";
 import {ICondition} from "../ICondition";
 import {ConditionProviderImpl} from "./ConditionProviderImpl";
+import {Operator} from "./Operator";
 
 /**
  *
@@ -33,8 +33,14 @@ export class UpdateQueryImpl<T> extends AbstractStoreQuery<T> implements IUpdate
         return undefined;
     }
 
-    public addConditions(...condition: ICondition[]): void {
-
+    public addConditions(...condition: ICondition[]): void;
+    public addConditions(operator: Operator, condition: ICondition): void;
+    public addConditions(...condition: Array<ICondition | Operator>): void {
+        if (condition.length > 0) {
+            if ("AND" in (condition[0] as any)) {
+                // this.condition.
+            }
+        }
     }
 
 }

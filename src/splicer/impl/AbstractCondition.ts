@@ -18,11 +18,10 @@ export abstract class AbstractCondition extends AbstractQueryPart implements ICo
     public and(sql: string, ...args: any[]): ICondition;
     public and(condition: ICondition | string, ...args: any[]): ICondition {
         if (typeof condition === "string") {
-            this.and(Joint.condition(condition, args));
+            return this.and(Joint.condition(condition, args));
         } else {
-            Joint.and(this, condition);
+            return Joint.and(this, condition);
         }
-        return undefined;
     }
 
     public andExists(select: ISelect<any>): ICondition {

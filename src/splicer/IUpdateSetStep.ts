@@ -9,8 +9,9 @@
  */
 import {IField} from "./IField";
 import {IUpdateWhereStep} from "./IUpdateWhereStep";
+import {IUpdateSetMoreStep} from "./IUpdateSetMoreStep";
 
 export interface IUpdateSetStep<T> {
-    set<R>(field: IField<R>, value: R): IUpdateWhereStep<T>;
-    set(map: Map<string, any>): IUpdateWhereStep<T>;
+    set<R>(field: IField<R>, value: R): IUpdateSetMoreStep<T>;
+    set(map: Map<string, any>): IUpdateSetMoreStep<T>;
 }

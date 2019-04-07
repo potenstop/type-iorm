@@ -10,7 +10,9 @@
 import {IStoreQuery} from "./IStoreQuery";
 import {IUpdate} from "./IUpdate";
 import {ICondition} from "./ICondition";
+import {Operator} from "./impl/Operator";
 
 export interface IUpdateQuery<T> extends IStoreQuery<T>, IUpdate<T> {
     addConditions(...condition: ICondition[]): void;
+    addConditions(operator: Operator, condition: ICondition): void;
 }

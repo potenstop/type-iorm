@@ -10,6 +10,7 @@
 import {AbstractQueryPart} from "./AbstractQueryPart";
 import {ICondition} from "../ICondition";
 import {ISelect} from "../ISelect";
+import {Joint} from "./Joint";
 
 export class ConditionProviderImpl extends AbstractQueryPart implements ICondition {
     private condition: ICondition;
@@ -58,9 +59,12 @@ export class ConditionProviderImpl extends AbstractQueryPart implements IConditi
     }
 
     protected getWhere(): ICondition {
-        return this.hasWhere() ? this.condition : DSL.noCondition();
+        // return this.hasWhere() ? this.condition : Joint.noCondition();
+        return null;
     }
     protected hasWhere(): boolean {
-        return this.condition != null && !(this.condition instanceof NoCondition);
+        return null;
+
+        // return this.condition != null && !(this.condition instanceof NoCondition);
     }
 }

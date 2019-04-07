@@ -1,7 +1,7 @@
 import {ICondition} from "./ICondition";
-import {ISelectConditionStep} from "./ISelectConditionStep";
 import {ISelect} from "./ISelect";
 import {IUpdateConditionStep} from "./IUpdateConditionStep";
+import {IUpdateFinalStep} from "./IUpdateFinalStep";
 
 /**
  *
@@ -12,7 +12,7 @@ import {IUpdateConditionStep} from "./IUpdateConditionStep";
  * @author yanshaowen
  * @date 2019/3/21 14:59
  */
-export interface IUpdateWhereStep<T> extends IUpdateConditionStep<T> {
+export interface IUpdateWhereStep<T> extends IUpdateFinalStep<T> {
     where(...condition: ICondition[]): IUpdateConditionStep<T>;
     where(sql: string): IUpdateConditionStep<T>;
     where(sql: string, ...args: any[]): IUpdateConditionStep<T>;

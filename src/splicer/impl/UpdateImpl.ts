@@ -19,6 +19,8 @@ import {IUpdateQuery} from "../IUpdateQuery";
 import {ObjectType} from "../../type/ObjectType";
 import {ISqlConnection} from "../../driver/ISqlConnection";
 import {UpdateQueryImpl} from "./UpdateQueryImpl";
+import {Joint} from "./Joint";
+import {IUpdateSetMoreStep} from "../IUpdateSetMoreStep";
 
 export class UpdateImpl<T> extends AbstractDelegatingQuery<IUpdateQuery<T>> implements IUpdateSetStep<T>, IUpdateConditionStep<T>, IUpdateWhereStep<T> {
     private table: ObjectType<T>;
@@ -30,8 +32,11 @@ export class UpdateImpl<T> extends AbstractDelegatingQuery<IUpdateQuery<T>> impl
     public and(sql: string): IUpdateConditionStep<T>;
     public and(sql: string, ...args: any[]): IUpdateConditionStep<T>;
     public and(condition: ICondition | string, ...args: any[]): IUpdateConditionStep<T> {
-        (this.getDelegate() as IUpdateQuery<T>)
-
+        if (typeof condition === "string") {
+            this.getDelegate().addConditions(Joint.condition(condition, args));
+        } else {
+            this.getDelegate().addConditions(condition);
+        }
         return this;
     }
 
@@ -66,6 +71,9 @@ export class UpdateImpl<T> extends AbstractDelegatingQuery<IUpdateQuery<T>> impl
     public or(sql: string): IUpdateConditionStep<T>;
     public or(sql: string, ...args: any[]): IUpdateConditionStep<T>;
     public or(condition: IUpdateConditionStep<T> | string, ...args: any[]): IUpdateConditionStep<T> {
+        if (typeof condition === "string") {
+            this.getDelegate().addConditions(Joint.condition(condition, args));
+        }
         return undefined;
     }
 
@@ -77,6 +85,9 @@ export class UpdateImpl<T> extends AbstractDelegatingQuery<IUpdateQuery<T>> impl
     public orNot(sql: string): IUpdateConditionStep<T>;
     public orNot(sql: string, ...args: any[]): IUpdateConditionStep<T>;
     public orNot(condition: ICondition | string, ...args: any[]): IUpdateConditionStep<T> {
+        if (typeof condition === "string") {
+
+        }
         return undefined;
     }
 
@@ -84,9 +95,9 @@ export class UpdateImpl<T> extends AbstractDelegatingQuery<IUpdateQuery<T>> impl
         return undefined;
     }
 
-    public set<R>(field: IField<R>, value: R): IUpdateWhereStep<T>;
-    public set(map: Map<string, any>): IUpdateWhereStep<T>;
-    public set<R>(field: IField<R> | Map<string, any>, value?: R): IUpdateWhereStep<T> {
+    public set<R>(field: IField<R>, value: R): IUpdateSetMoreStep<T>;
+    public set(map: Map<string, any>): IUpdateSetMoreStep<T>;
+    public set<R>(field: IField<R> | Map<string, any>, value?: R): IUpdateSetMoreStep<T> {
         if (field instanceof Map) {
             this.getDelegate().addValues(field);
         } else {
@@ -100,14 +111,22 @@ export class UpdateImpl<T> extends AbstractDelegatingQuery<IUpdateQuery<T>> impl
     public where(sql: string): IUpdateConditionStep<T>;
     public where(sql: string, ...args: any[]): IUpdateConditionStep<T>;
     public where(...condition: Array<ICondition | string | any>): IUpdateConditionStep<T> {
-        return undefined;
+        if (condition.length === 0 ) {
+            this.getDelegate().addConditions(Joint.condition("1=1", []));
+        } else if (typeof condition[0] === "string") {
+            this.getDelegate().addConditions(Joint.condition(condition[0], condition.slice(1, condition.length)));
+        } else {
+            const condition1 = condition as ICondition[];
+            this.getDelegate().addConditions(...condition1);
+        }
+        return this;
     }
 
     public whereExists(select: ISelect<T>): IUpdateConditionStep<T> {
-        return undefined;
+        return this.and(Joint.exists(select));
     }
 
     public whereNotExists(select: ISelect<T>): IUpdateConditionStep<T> {
-        return undefined;
+        return this.and(Joint.notExists(select));
     }
 }
