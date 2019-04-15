@@ -2,6 +2,7 @@ import {ICondition} from "./ICondition";
 import {ISelectGroupByStep} from "./ISelectGroupByStep";
 import {ISelectConditionStep} from "./ISelectConditionStep";
 import {ISelect} from "./ISelect";
+import {IObjectLiteral} from "../type/IObjectLiteral";
 
 /**
  *
@@ -15,7 +16,7 @@ import {ISelect} from "./ISelect";
 export interface ISelectWhereStep<T> extends ISelectGroupByStep<T> {
     where(...condition: ICondition[]): ISelectConditionStep<T>;
     where(sql: string): ISelectConditionStep<T>;
-    where(sql: string, ...args: any[]): ISelectConditionStep<T>;
+    where(sql: string, args: IObjectLiteral): ISelectConditionStep<T>;
     whereExists(select: ISelect<T>): ISelectConditionStep<T>;
     whereNotExists(select: ISelect<T>): ISelectConditionStep<T>;
 

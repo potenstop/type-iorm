@@ -34,4 +34,5 @@ export abstract class AbstractQueryPart implements IQueryPartInternal {
     public toString(): string {
         return "";
     }
+    public abstract accept(ctx: IContext): void;
 }

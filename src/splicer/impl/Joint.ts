@@ -14,15 +14,22 @@ import {SQLCondition} from "./SQLCondition";
 import {CombinedCondition} from "./CombinedCondition";
 import {ISelect} from "../ISelect";
 import {ExistsCondition} from "./ExistsCondition";
+import {NoCondition} from "./NoCondition";
+import {IObjectLiteral} from "../../type/IObjectLiteral";
+import {JSHelperUtil} from "../../util/JSHelperUtil";
 
 export class Joint {
     public static condition(operator: Operator, left: ICondition, right: ICondition): ICondition;
-    public static condition(sql: string, args: any[]): ICondition;
-    public static condition(sql: string | Operator, args: any[] | ICondition, right?: ICondition): ICondition {
-        if (typeof sql === "string" && Array.isArray(args)) {
-            return new SQLCondition(new SQLImpl(sql, args));
+    public static condition(operator: Operator, conditions: ICondition[]): ICondition;
+    public static condition(sql: string, args: IObjectLiteral): ICondition;
+    public static condition(sql: string): ICondition;
+    public static condition(sql: string | Operator, args?: IObjectLiteral| ICondition[] | ICondition, right?: ICondition): ICondition {
+        if (typeof sql === "string") {
+            return new SQLCondition(new SQLImpl(sql, JSHelperUtil.isNullOrUndefined(args) ? {} : args));
         } else if (typeof sql !== "string" && !Array.isArray(args)) {
-            return new CombinedCondition(sql, args, right);
+            return new CombinedCondition(sql, args as ICondition, right);
+        } else if (typeof sql !== "string" && Array.isArray(args)) {    // operator: Operator, conditions: ICondition[]
+            return null;
         }
     }
 
@@ -38,4 +45,8 @@ export class Joint {
     public static notExists(query: ISelect<any>) {
         return new ExistsCondition(query, false);
     }
+    public static noCondition() {
+        return NoCondition.INSTANCE;
+    }
 }
+

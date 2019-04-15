@@ -9,11 +9,15 @@
  */
 import {AbstractCondition} from "./AbstractCondition";
 import {IQueryPart} from "../IQueryPart";
+import {IContext} from "../IContext";
 
 export class SQLCondition extends AbstractCondition {
     private delegate: IQueryPart;
     constructor(delegate: IQueryPart) {
         super();
         this.delegate = delegate;
+    }
+
+    public accept(ctx: IContext): void {
     }
 }

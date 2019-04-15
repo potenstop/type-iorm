@@ -10,26 +10,27 @@
 import {ISelectOrderByStep} from "./ISelectOrderByStep";
 import {ICondition} from "./ICondition";
 import {ISelect} from "./ISelect";
+import {IObjectLiteral} from "../type/IObjectLiteral";
 
 export interface ISelectHavingConditionStep<T> extends ISelectOrderByStep<T> {
     and(condition: ICondition): ISelectHavingConditionStep<T>;
     and(sql: string): ISelectHavingConditionStep<T>;
-    and(sql: string, ...args: any[]): ISelectHavingConditionStep<T>;
+    and(sql: string, args: IObjectLiteral): ISelectHavingConditionStep<T>;
 
     andNot(condition: ICondition): ISelectHavingConditionStep<T>;
     andNot(sql: string): ISelectHavingConditionStep<T>;
-    andNot(sql: string, ...args: any[]): ISelectHavingConditionStep<T>;
+    andNot(sql: string, args: IObjectLiteral): ISelectHavingConditionStep<T>;
 
     andExists(select: ISelect<any>): ISelectHavingConditionStep<T>;
     andNotExists(select: ISelect<any>): ISelectHavingConditionStep<T>;
 
     or(condition: ICondition): ISelectHavingConditionStep<T>;
     or(sql: string): ISelectHavingConditionStep<T>;
-    or(sql: string, ...args: any[]): ISelectHavingConditionStep<T>;
+    or(sql: string, args: IObjectLiteral): ISelectHavingConditionStep<T>;
 
     orNot(condition: ICondition): ISelectHavingConditionStep<T>;
     orNot(sql: string): ISelectHavingConditionStep<T>;
-    orNot(sql: string, ...args: any[]): ISelectHavingConditionStep<T>;
+    orNot(sql: string, args: IObjectLiteral): ISelectHavingConditionStep<T>;
 
     orExists(select: ISelect<any>): ISelectHavingConditionStep<T>;
     orNotExists(select: ISelect<any>): ISelectHavingConditionStep<T>;

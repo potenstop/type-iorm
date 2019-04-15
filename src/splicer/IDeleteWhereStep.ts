@@ -11,11 +11,12 @@ import {IDeleteFinalStep} from "./IDeleteFinalStep";
 import {ICondition} from "./ICondition";
 import {ISelect} from "./ISelect";
 import {IDeleteConditionStep} from "./IDeleteConditionStep";
+import {IObjectLiteral} from "../type/IObjectLiteral";
 
 export interface IDeleteWhereStep<T> extends IDeleteFinalStep<T> {
     where(...condition: ICondition[]): IDeleteConditionStep<T>;
     where(sql: string): IDeleteConditionStep<T>;
-    where(sql: string, ...args: any[]): IDeleteConditionStep<T>;
+    where(sql: string, args: IObjectLiteral): IDeleteConditionStep<T>;
     whereExists(select: ISelect<T>): IDeleteConditionStep<T>;
     whereNotExists(select: ISelect<T>): IDeleteConditionStep<T>;
 }

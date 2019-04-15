@@ -26,5 +26,4 @@ export abstract class AbstractDMLQuery<T> extends AbstractQuery {
         }
         return this.returnedResult;
     }
-    public abstract accept(ctx: IContext): void;
 }

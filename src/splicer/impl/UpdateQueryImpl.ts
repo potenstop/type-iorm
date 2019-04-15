@@ -37,8 +37,11 @@ export class UpdateQueryImpl<T> extends AbstractStoreQuery<T> implements IUpdate
     public addConditions(operator: Operator, condition: ICondition): void;
     public addConditions(...condition: Array<ICondition | Operator>): void {
         if (condition.length > 0) {
-            if ("AND" in (condition[0] as any)) {
-                // this.condition.
+            if ("andNot" in (condition[0] as any)) {
+                const condition1 = condition as ICondition[];
+                this.condition.addConditions(condition1);
+            } else {
+                this.condition.addConditions(condition[0] as Operator, condition[1] as ICondition);
             }
         }
     }

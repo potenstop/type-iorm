@@ -10,6 +10,7 @@
 import {AbstractCondition} from "./AbstractCondition";
 import {Operator} from "./Operator";
 import {ICondition} from "../ICondition";
+import {IContext} from "../IContext";
 
 export class CombinedCondition extends AbstractCondition {
     private operator: Operator;
@@ -33,4 +34,8 @@ export class CombinedCondition extends AbstractCondition {
         }
         return this;
     }
+
+    public accept(ctx: IContext): void {
+    }
+
 }

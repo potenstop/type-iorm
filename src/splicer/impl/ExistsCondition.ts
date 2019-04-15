@@ -9,6 +9,7 @@
  */
 import {AbstractCondition} from "./AbstractCondition";
 import {ISelect} from "../ISelect";
+import {IContext} from "../IContext";
 
 export class ExistsCondition extends AbstractCondition {
     private query: ISelect<any>;
@@ -17,6 +18,9 @@ export class ExistsCondition extends AbstractCondition {
         super();
         this.query = query;
         this.exists = exists;
+    }
+
+    public accept(ctx: IContext): void {
     }
 
 }

@@ -9,9 +9,10 @@
  */
 import {ICondition} from "./ICondition";
 import {ISelectOnConditionStep} from "./ISelectOnConditionStep";
+import {IObjectLiteral} from "../type/IObjectLiteral";
 
 export interface ISelectOnStep<T> {
     on(...condition: ICondition[]): ISelectOnConditionStep<T>;
     on(sql: string): ISelectOnConditionStep<T>;
-    on(sql: string, ...args: any[]): ISelectOnConditionStep<T>;
+    on(sql: string, args: IObjectLiteral): ISelectOnConditionStep<T>;
 }

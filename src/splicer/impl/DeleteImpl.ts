@@ -13,12 +13,14 @@ import {ICondition} from "../ICondition";
 import {ISelect} from "../ISelect";
 import {IChangeResult} from "../IChangeResult";
 import {IQuery} from "../IQuery";
+import {IObjectLiteral} from "../../type/IObjectLiteral";
+import {IContext} from "../IContext";
 
 export class DeleteImpl<T> implements IDeleteWhereStep<T>, IDeleteConditionStep<T> {
     public and(condition: ICondition): IDeleteConditionStep<T>;
     public and(sql: string): IDeleteConditionStep<T>;
-    public and(sql: string, ...args: any[]): IDeleteConditionStep<T>;
-    public and(condition: ICondition | string, ...args: any[]): IDeleteConditionStep<T> {
+    public and(sql: string, args: IObjectLiteral): IDeleteConditionStep<T>;
+    public and(condition: ICondition | string, args?: IObjectLiteral): IDeleteConditionStep<T> {
         return undefined;
     }
 
@@ -28,8 +30,8 @@ export class DeleteImpl<T> implements IDeleteWhereStep<T>, IDeleteConditionStep<
 
     public andNot(condition: ICondition): IDeleteConditionStep<T>;
     public andNot(sql: string): IDeleteConditionStep<T>;
-    public andNot(sql: string, ...args: any[]): IDeleteConditionStep<T>;
-    public andNot(condition: ICondition | string, ...args: any[]): IDeleteConditionStep<T> {
+    public andNot(sql: string, args: IObjectLiteral): IDeleteConditionStep<T>;
+    public andNot(condition: ICondition | string, args?: IObjectLiteral): IDeleteConditionStep<T> {
         return undefined;
     }
 
@@ -39,10 +41,6 @@ export class DeleteImpl<T> implements IDeleteWhereStep<T>, IDeleteConditionStep<
 
     public equals(value: any): boolean {
         return false;
-    }
-
-    public execute(): Promise<number> {
-        return undefined;
     }
 
     public getAffectedRow(): number {
@@ -67,8 +65,8 @@ export class DeleteImpl<T> implements IDeleteWhereStep<T>, IDeleteConditionStep<
 
     public or(condition: IDeleteConditionStep<T>): IDeleteConditionStep<T>;
     public or(sql: string): IDeleteConditionStep<T>;
-    public or(sql: string, ...args: any[]): IDeleteConditionStep<T>;
-    public or(condition: IDeleteConditionStep<T> | string, ...args: any[]): IDeleteConditionStep<T> {
+    public or(sql: string, args: IObjectLiteral): IDeleteConditionStep<T>;
+    public or(condition: IDeleteConditionStep<T> | string, args?: IObjectLiteral): IDeleteConditionStep<T> {
         return undefined;
     }
 
@@ -78,8 +76,8 @@ export class DeleteImpl<T> implements IDeleteWhereStep<T>, IDeleteConditionStep<
 
     public orNot(condition: ICondition): IDeleteConditionStep<T>;
     public orNot(sql: string): IDeleteConditionStep<T>;
-    public orNot(sql: string, ...args: any[]): IDeleteConditionStep<T>;
-    public orNot(condition: ICondition | string, ...args: any[]): IDeleteConditionStep<T> {
+    public orNot(sql: string, args: IObjectLiteral): IDeleteConditionStep<T>;
+    public orNot(condition: ICondition | string, args?: IObjectLiteral): IDeleteConditionStep<T> {
         return undefined;
     }
 
@@ -91,18 +89,26 @@ export class DeleteImpl<T> implements IDeleteWhereStep<T>, IDeleteConditionStep<
         return undefined;
     }
 
-    public where(...condition: ICondition[]): IDeleteConditionStep<T>;
-    public where(sql: string): IDeleteConditionStep<T>;
-    public where(sql: string, ...args: any[]): IDeleteConditionStep<T>;
-    public where(...condition: Array<ICondition | string | any>): IDeleteConditionStep<T> {
-        return undefined;
-    }
-
     public whereExists(select: ISelect<T>): IDeleteConditionStep<T> {
         return undefined;
     }
 
     public whereNotExists(select: ISelect<T>): IDeleteConditionStep<T> {
+        return undefined;
+    }
+
+    public execute(): Promise<IContext> {
+        return undefined;
+    }
+
+    public isExecutable(): boolean {
+        return false;
+    }
+
+    public where(...condition: ICondition[]): IDeleteConditionStep<T>;
+    public where(sql: string): IDeleteConditionStep<T>;
+    public where(sql: string, args: IObjectLiteral): IDeleteConditionStep<T>;
+    public where(...condition: Array<ICondition | string | IObjectLiteral>): IDeleteConditionStep<T> {
         return undefined;
     }
 

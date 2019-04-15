@@ -10,6 +10,7 @@
 import {AbstractQueryPart} from "./AbstractQueryPart";
 import {IQuery} from "../IQuery";
 import {AbstractStoreQuery} from "./AbstractStoreQuery";
+import {IContext} from "../IContext";
 
 export abstract class AbstractDelegatingQuery<Q extends IQuery> extends AbstractQueryPart implements IQuery {
     private readonly delegate: Q;
@@ -34,6 +35,9 @@ export abstract class AbstractDelegatingQuery<Q extends IQuery> extends Abstract
     }
     public getDelegate(): Q {
         return this.delegate;
+    }
+    public accept(ctx: IContext): void {
+
     }
 
 }

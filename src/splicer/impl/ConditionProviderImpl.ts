@@ -11,15 +11,13 @@ import {AbstractQueryPart} from "./AbstractQueryPart";
 import {ICondition} from "../ICondition";
 import {ISelect} from "../ISelect";
 import {Joint} from "./Joint";
+import {NoCondition} from "./NoCondition";
+import {Operator} from "./Operator";
+import {IContext} from "../IContext";
+import {IObjectLiteral} from "../../type/IObjectLiteral";
 
 export class ConditionProviderImpl extends AbstractQueryPart implements ICondition {
     private condition: ICondition;
-    public and(condition: ICondition): ICondition;
-    public and(sql: string): ICondition;
-    public and(sql: string, ...args: any[]): ICondition;
-    public and(condition: ICondition | string, ...args: any[]): ICondition {
-        return undefined;
-    }
 
     public andExists(select: ISelect<any>): ICondition {
         return undefined;
@@ -27,8 +25,8 @@ export class ConditionProviderImpl extends AbstractQueryPart implements IConditi
 
     public andNot(condition: ICondition): ICondition;
     public andNot(sql: string): ICondition;
-    public andNot(sql: string, ...args: any[]): ICondition;
-    public andNot(condition: ICondition | string, ...args: any[]): ICondition {
+    public andNot(sql: string, args: IObjectLiteral): ICondition;
+    public andNot(condition: ICondition | string, args?: IObjectLiteral): ICondition {
         return undefined;
     }
 
@@ -38,8 +36,8 @@ export class ConditionProviderImpl extends AbstractQueryPart implements IConditi
 
     public or(condition: ICondition): ICondition;
     public or(sql: string): ICondition;
-    public or(sql: string, ...args: any[]): ICondition;
-    public or(condition: ICondition | string, ...args: any[]): ICondition {
+    public or(sql: string, args: IObjectLiteral): ICondition;
+    public or(condition: ICondition | string, args?: IObjectLiteral): ICondition {
         return undefined;
     }
 
@@ -49,8 +47,8 @@ export class ConditionProviderImpl extends AbstractQueryPart implements IConditi
 
     public orNot(condition: ICondition): ICondition;
     public orNot(sql: string): ICondition;
-    public orNot(sql: string, ...args: any[]): ICondition;
-    public orNot(condition: ICondition | string, ...args: any[]): ICondition {
+    public orNot(sql: string, args: IObjectLiteral): ICondition;
+    public orNot(condition: ICondition | string, args?: IObjectLiteral): ICondition {
         return undefined;
     }
 
@@ -59,12 +57,37 @@ export class ConditionProviderImpl extends AbstractQueryPart implements IConditi
     }
 
     protected getWhere(): ICondition {
-        // return this.hasWhere() ? this.condition : Joint.noCondition();
-        return null;
+        return this.hasWhere() ? this.condition : Joint.noCondition();
     }
     protected hasWhere(): boolean {
-        return null;
-
-        // return this.condition != null && !(this.condition instanceof NoCondition);
+        return this.condition != null && !(this.condition instanceof NoCondition);
     }
+    public addConditions(conditions: ICondition[]): void;
+    public addConditions(operator: Operator, conditions: ICondition): void;
+    public addConditions(operator: Operator | ICondition[], conditions?: ICondition): void {
+        let op: Operator = Operator.AND;
+        if (!Array.isArray(operator)) {
+            op = operator as Operator;
+            if (this.hasWhere()) {
+                this.condition = Joint.condition(op, this.getWhere(), conditions);
+            } else {
+                this.condition = conditions;
+            }
+        } else {
+            Joint.condition(op, conditions);
+        }
+
+    }
+
+    public accept(ctx: IContext): void {
+
+    }
+
+    public and(condition: ICondition): ICondition;
+    public and(sql: string): ICondition;
+    public and(sql: string, args: IObjectLiteral): ICondition;
+    public and(condition: ICondition | string, args?: IObjectLiteral): ICondition {
+        return undefined;
+    }
+
 }

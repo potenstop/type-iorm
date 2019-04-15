@@ -2,6 +2,7 @@ import {ICondition} from "./ICondition";
 import {ISelect} from "./ISelect";
 import {IUpdateConditionStep} from "./IUpdateConditionStep";
 import {IUpdateFinalStep} from "./IUpdateFinalStep";
+import {IObjectLiteral} from "../type/IObjectLiteral";
 
 /**
  *
@@ -15,7 +16,7 @@ import {IUpdateFinalStep} from "./IUpdateFinalStep";
 export interface IUpdateWhereStep<T> extends IUpdateFinalStep<T> {
     where(...condition: ICondition[]): IUpdateConditionStep<T>;
     where(sql: string): IUpdateConditionStep<T>;
-    where(sql: string, ...args: any[]): IUpdateConditionStep<T>;
+    where(sql: string, args: IObjectLiteral): IUpdateConditionStep<T>;
     whereExists(select: ISelect<T>): IUpdateConditionStep<T>;
     whereNotExists(select: ISelect<T>): IUpdateConditionStep<T>;
 }
