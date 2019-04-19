@@ -90,4 +90,8 @@ export class ConditionProviderImpl extends AbstractQueryPart implements IConditi
         return undefined;
     }
 
+    public not(): ICondition {
+        return this.getWhere().not();
+    }
+
 }

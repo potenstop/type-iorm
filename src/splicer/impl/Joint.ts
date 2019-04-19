@@ -17,19 +17,44 @@ import {ExistsCondition} from "./ExistsCondition";
 import {NoCondition} from "./NoCondition";
 import {IObjectLiteral} from "../../type/IObjectLiteral";
 import {JSHelperUtil} from "../../util/JSHelperUtil";
+import {TrueCondition} from "./TrueCondition";
+import {FalseCondition} from "./FalseCondition";
+import {IKeyword} from "../IKeyword";
+import {KeywordImpl} from "./KeywordImpl";
+import {IField} from "../IField";
+import {FieldCondition} from "./FieldCondition";
 
 export class Joint {
     public static condition(operator: Operator, left: ICondition, right: ICondition): ICondition;
     public static condition(operator: Operator, conditions: ICondition[]): ICondition;
     public static condition(sql: string, args: IObjectLiteral): ICondition;
     public static condition(sql: string): ICondition;
-    public static condition(sql: string | Operator, args?: IObjectLiteral| ICondition[] | ICondition, right?: ICondition): ICondition {
+    public static condition(field: IField<boolean> ): ICondition;
+    public static condition(sql: string | Operator | IField<boolean>, args?: IObjectLiteral| ICondition[] | ICondition, right?: ICondition): ICondition {
         if (typeof sql === "string") {
             return new SQLCondition(new SQLImpl(sql, JSHelperUtil.isNullOrUndefined(args) ? {} : args));
+        } else if ("as" in sql) {
+            return new FieldCondition(sql);
         } else if (typeof sql !== "string" && !Array.isArray(args)) {
             return new CombinedCondition(sql, args as ICondition, right);
         } else if (typeof sql !== "string" && Array.isArray(args)) {    // operator: Operator, conditions: ICondition[]
-            return null;
+            let combinedCondition: CombinedCondition;
+            args.forEach((condition) => {
+                if (!(condition instanceof NoCondition)) {
+                    if (combinedCondition === null) {
+                        combinedCondition = new CombinedCondition(sql);
+                    } else {
+                        combinedCondition.add(sql, condition);
+                    }
+                }
+            });
+            if (JSHelperUtil.isNullOrUndefined(combinedCondition)) {
+                if (sql === Operator.AND) {
+                    return Joint.trueCondition();
+                } else {
+                    return Joint.falseCondition();
+                }
+            }
         }
     }
 
@@ -48,5 +73,13 @@ export class Joint {
     public static noCondition() {
         return NoCondition.INSTANCE;
     }
+    public static trueCondition() {
+        return TrueCondition.INSTANCE;
+    }
+    public static falseCondition() {
+        return FalseCondition.INSTANCE;
+    }
+    public static keyword(keyword: string): IKeyword {
+        return new KeywordImpl(keyword);
+    }
 }
-

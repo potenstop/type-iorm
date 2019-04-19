@@ -24,6 +24,7 @@
   "dependencies": {
     "@types/node": "^11.9.5",
     "generic-pool": "^3.6.1",
+    "left-pad": "^1.3.0",
     "reflect-metadata": "^0.1.13",
     "type-interface": "0.0.2",
     "type-slf4": "0.0.3"

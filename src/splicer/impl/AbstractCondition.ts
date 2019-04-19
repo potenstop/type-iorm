@@ -12,6 +12,7 @@ import {ICondition} from "../ICondition";
 import {ISelect} from "../ISelect";
 import {Joint} from "./Joint";
 import {IObjectLiteral} from "../../type/IObjectLiteral";
+import {NotCondition} from "./NotCondition";
 
 export abstract class AbstractCondition extends AbstractQueryPart implements ICondition {
     public andExists(select: ISelect<any>): ICondition {
@@ -60,5 +61,9 @@ export abstract class AbstractCondition extends AbstractQueryPart implements ICo
         } else {
             return Joint.and(this, condition);
         }
+    }
+
+    public not(): ICondition {
+        return new NotCondition(this);
     }
 }

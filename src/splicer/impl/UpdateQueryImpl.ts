@@ -7,6 +7,7 @@ import {ObjectType} from "../../type/ObjectType";
 import {ICondition} from "../ICondition";
 import {ConditionProviderImpl} from "./ConditionProviderImpl";
 import {Operator} from "./Operator";
+import {Keywords} from "./Keywords";
 
 /**
  *
@@ -44,6 +45,10 @@ export class UpdateQueryImpl<T> extends AbstractStoreQuery<T> implements IUpdate
                 this.condition.addConditions(condition[0] as Operator, condition[1] as ICondition);
             }
         }
+    }
+
+    public accept0(ctx: IContext): void {
+        // ctx.visitSql(Keywords.K_UPDATE).sql(" ").visitSql()
     }
 
 }

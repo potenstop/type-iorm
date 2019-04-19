@@ -20,10 +20,18 @@ export abstract class AbstractDMLQuery<T> extends AbstractQuery {
         super(connection);
         this.table = table;
     }
+    public abstract accept0(ctx: IContext): void;
+
     public getResult(): IResult<any> {
         if (this.returnedResult == null) {
 
         }
         return this.returnedResult;
     }
+
+    public accept(ctx: IContext): void {
+        // with
+        this.accept0(ctx);
+    }
+
 }

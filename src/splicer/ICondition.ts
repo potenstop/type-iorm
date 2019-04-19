@@ -32,4 +32,6 @@ export interface ICondition extends IQueryPart {
 
     orExists(select: ISelect<any>): ICondition;
     orNotExists(select: ISelect<any>): ICondition;
+
+    not(): ICondition;
 }

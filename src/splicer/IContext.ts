@@ -8,11 +8,19 @@
  * @date 2019/3/23 17:53
  */
 import {IScope} from "./IScope";
-import {IField} from "./IField";
+import {IQueryPart} from "./IQueryPart";
 
 export interface IContext extends IScope {
     sql(sql: string): this;
+    sql(sql: string, literal: boolean): this;
     render(): string;
     getSourceResult(): any;
     setSourceResult(obj: any): void;
+    formatIndentStart(): this;
+    formatIndentStart(len: number): this;
+    formatNewLine(): this;
+    formatIndentEnd(): this;
+    formatIndentEnd(len: number): this;
+    visitSql(part: IQueryPart): this;
+    formatSeparator(): this;
 }
