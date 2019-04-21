@@ -273,5 +273,5 @@ export class Keywords {
     public static readonly K_XMLTABLE: IKeyword = Joint.keyword("xmltable");
     public static readonly K_YEAR_TO_DAY: IKeyword = Joint.keyword("year to day");
     public static readonly K_YEAR_TO_FRACTION: IKeyword = Joint.keyword("year to fraction");
-    private constructor() {}
+    constructor() {}
 }

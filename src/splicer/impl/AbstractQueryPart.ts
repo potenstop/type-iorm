@@ -8,7 +8,6 @@
  * @date 2019/3/22 11:10
  */
 import {IQueryPartInternal} from "../IQueryPartInternal";
-import {IQueryPart} from "../IQueryPart";
 import {IContext} from "../IContext";
 
 export abstract class AbstractQueryPart implements IQueryPartInternal {

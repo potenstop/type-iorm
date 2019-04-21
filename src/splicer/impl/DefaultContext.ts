@@ -13,6 +13,9 @@ import {RenderFormatting} from "./RenderFormatting";
 import * as leftPad from "left-pad";
 import {IQueryPart} from "../IQueryPart";
 import {AbstractQueryPart} from "./AbstractQueryPart";
+import {ObjectType} from "../../type/ObjectType";
+import {Tool} from "./Tool";
+import {IField} from "../IField";
 
 export class DefaultContext implements IContext {
     private sourceResult: any;
@@ -27,7 +30,7 @@ export class DefaultContext implements IContext {
     private separator: boolean;
     private newline: boolean;
     private cachedNewline: string;
-    private static NEWLINE: RegExp = /[\\n\\r]/g;
+    private static NEWLINE: RegExp = /[\n\r]/g;
     constructor() {
         this.sqlStr = "";
         this.cachedRenderFormatted = true;
@@ -50,9 +53,10 @@ export class DefaultContext implements IContext {
     public sql(sql: string, literal?: boolean): this {
         if (JSHelperUtil.isNullOrUndefined(literal)) {
             this.sql(sql, JSHelperUtil.isNullOrUndefined(sql) || !this.cachedRenderFormatted);
+            return this;
         }
         if (!literal) {
-            sql = sql.replace(DefaultContext.NEWLINE, "$0" + this.indentation());
+            sql = sql.replace(DefaultContext.NEWLINE, this.indentation());
         }
         if (this.getStringLiteral()) {
             sql = sql.replace("'", this.stringLiteralEscapedApos);
@@ -61,6 +65,7 @@ export class DefaultContext implements IContext {
         this.separator = false;
         this.newline = false;
         return this;
+
     }
     public render(): string {
         return this.sqlStr;
@@ -120,5 +125,16 @@ export class DefaultContext implements IContext {
             this.separator = true;
         }
         return this;
+    }
+
+    public visitTable(table: ObjectType<any>): this {
+        const tableName = Tool.getTableName(table);
+        this.sql("`" + tableName + "`");
+        return undefined;
+    }
+
+    public visitFiled(filed: IField<any>): this {
+
+        return undefined;
     }
 }

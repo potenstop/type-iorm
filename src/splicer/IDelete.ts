@@ -9,6 +9,6 @@
  */
 import {IQuery} from "./IQuery";
 
-export interface IDelete<T> extends IQuery{
+export interface IDelete<T> extends IQuery {
 
 }

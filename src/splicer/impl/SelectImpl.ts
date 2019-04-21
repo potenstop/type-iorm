@@ -182,7 +182,7 @@ export class SelectImpl<T> implements ISelectSelectStep<T>, ISelectOnConditionSt
         return undefined;
     }
 
-    public option(var1: string): ISelectUnionStep {
+    public option(var1: string): ISelectUnionStep<T> {
         return undefined;
     }
 

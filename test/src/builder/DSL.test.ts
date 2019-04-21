@@ -42,8 +42,9 @@ describe("测试 DSL", () => {
        await DSL.delete(ShellTask).where().getAffectedRow();
     });
     it("buff", async () => {
-        const buf5 = Buffer.from("tést");
-        console.log(buf5);
+        /*const buf5 = Buffer.from("tést");
+        console.log(buf5);*/
+
 
     });
 });

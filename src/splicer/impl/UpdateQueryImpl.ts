@@ -8,6 +8,7 @@ import {ICondition} from "../ICondition";
 import {ConditionProviderImpl} from "./ConditionProviderImpl";
 import {Operator} from "./Operator";
 import {Keywords} from "./Keywords";
+import {FieldMapForUpdate} from "./FieldMapForUpdate";
 
 /**
  *
@@ -20,8 +21,15 @@ import {Keywords} from "./Keywords";
  */
 export class UpdateQueryImpl<T> extends AbstractStoreQuery<T> implements IUpdateQuery<T> {
     private condition: ConditionProviderImpl;
+    private table0: ObjectType<T>;
+    private updateMap: FieldMapForUpdate;
     constructor(connection: ISqlConnection, table: ObjectType<T>) {
         super(connection, table);
+        this.condition = new ConditionProviderImpl();
+        this.table0 = table;
+
+        this.updateMap = new FieldMapForUpdate(table);
+        this.from = new TableList();
         this.condition = new ConditionProviderImpl();
     }
     public accept(ctx: IContext): void {
@@ -48,7 +56,10 @@ export class UpdateQueryImpl<T> extends AbstractStoreQuery<T> implements IUpdate
     }
 
     public accept0(ctx: IContext): void {
-        // ctx.visitSql(Keywords.K_UPDATE).sql(" ").visitSql()
+        // update tableName
+        ctx.visitSql(Keywords.K_UPDATE).sql(" ").visitTable(this.table0);
+        // set
+        ctx.visitSql(Keywords.K_SET).sql(" ");
     }
 
 }

@@ -11,5 +11,5 @@ import {ISelectFinalStep} from "./ISelectFinalStep";
 import {ISelectUnionStep} from "./ISelectUnionStep";
 
 export interface ISelectOptionStep<T> extends ISelectFinalStep<T> {
-    option(var1: string): ISelectUnionStep;
+    option(var1: string): ISelectUnionStep<T>;
 }

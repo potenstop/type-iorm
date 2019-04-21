@@ -142,4 +142,7 @@ export class FieldMapsForInsert extends AbstractQueryPart {
         }));
     }
 
+    public accept(ctx: IContext): void {
+    }
+
 }

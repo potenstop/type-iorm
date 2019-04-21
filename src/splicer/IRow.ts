@@ -10,6 +10,7 @@
 import {IFieldOrRow} from "./IFieldOrRow";
 import {IDataType} from "./IDataType";
 import {IField} from "./IField";
+import {ICondition} from "./ICondition";
 
 export interface IRow extends IFieldOrRow {
     size(): number;
@@ -18,6 +19,8 @@ export interface IRow extends IFieldOrRow {
     getField(field: string): IField<any>;
     type(field: string): Object;
     types(): Object[];
-    dataType(field: string): Object;
-    dataTypes(): Object[];
+    dataType(field: string): IDataType<any>;
+    dataTypes(): Array<IDataType<any>>;
+    isNull(): ICondition;
+    isNotNull(): ICondition;
 }

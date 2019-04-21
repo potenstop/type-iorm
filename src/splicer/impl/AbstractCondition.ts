@@ -12,9 +12,11 @@ import {ICondition} from "../ICondition";
 import {ISelect} from "../ISelect";
 import {Joint} from "./Joint";
 import {IObjectLiteral} from "../../type/IObjectLiteral";
-import {NotCondition} from "./NotCondition";
 
 export abstract class AbstractCondition extends AbstractQueryPart implements ICondition {
+    constructor() {
+        super();
+    }
     public andExists(select: ISelect<any>): ICondition {
         return undefined;
     }
@@ -64,6 +66,7 @@ export abstract class AbstractCondition extends AbstractQueryPart implements ICo
     }
 
     public not(): ICondition {
+        const NotCondition = require("./NotCondition");
         return new NotCondition(this);
     }
 }
