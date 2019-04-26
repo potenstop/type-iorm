@@ -23,6 +23,9 @@ import {IKeyword} from "../IKeyword";
 import {KeywordImpl} from "./KeywordImpl";
 import {IField} from "../IField";
 import {FieldCondition} from "./FieldCondition";
+import {IName} from "../IName";
+import {UnqualifiedName} from "./UnqualifiedName";
+import {QualifiedName} from "./QualifiedName";
 
 export class Joint {
     public static condition(operator: Operator, left: ICondition, right: ICondition): ICondition;
@@ -81,5 +84,19 @@ export class Joint {
     }
     public static keyword(keyword: string): IKeyword {
         return new KeywordImpl(keyword);
+    }
+    public static getNames(names: string[]): IName[] {
+        return names.map((name) => {
+            return Joint.getName(name);
+        });
+    }
+    public static getName(name: string): IName {
+        return new UnqualifiedName(name);
+    }
+    public static getNoName(): IName {
+        return Joint.getName("");
+    }
+    public static getQualifiedName(names: IName[]): IName {
+        return new QualifiedName(name);
     }
 }

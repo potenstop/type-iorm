@@ -11,6 +11,7 @@ import {IScope} from "./IScope";
 import {IQueryPart} from "./IQueryPart";
 import {ObjectType} from "../type/ObjectType";
 import {IField} from "./IField";
+import {ITable} from "./ITable";
 
 export interface IContext extends IScope {
     sql(sql: string): this;
@@ -24,7 +25,7 @@ export interface IContext extends IScope {
     formatIndentEnd(): this;
     formatIndentEnd(len: number): this;
     visitSql(part: IQueryPart): this;
-    visitTable(table: ObjectType<any>): this;
+    visitTable(table: ITable<any>): this;
     visitFiled(filed: IField<any>): this;
     formatSeparator(): this;
 }

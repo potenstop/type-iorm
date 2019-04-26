@@ -8,7 +8,8 @@
  * @date 2019/3/21 13:31
  */
 import {IInsertFinalStep} from "./IInsertFinalStep";
+import {IRecord} from "./IRecord";
 
-export interface IInsertValuesStep<T> extends IInsertFinalStep<T> {
-    values(...value: any): IInsertValuesStep<T>;
+export interface IInsertValuesStep<R extends IRecord> extends IInsertFinalStep<R> {
+    values(...value: any): IInsertValuesStep<R>;
 }

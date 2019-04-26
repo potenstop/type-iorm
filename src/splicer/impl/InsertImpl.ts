@@ -17,16 +17,18 @@ import {IInsertQuery} from "../IInsertQuery";
 import {InsertQueryImpl} from "./InsertQueryImpl";
 import {ISqlConnection} from "../../driver/ISqlConnection";
 import {SqlBuilderError} from "../../error/SqlBuilderError";
+import {IRecord} from "../IRecord";
+import {ITable} from "../ITable";
 
-export class InsertImpl<T> extends AbstractDelegatingQuery<IInsertQuery<T>> implements IInsertSetStep<T>, IInsertValuesStep<T> {
-    private into: ObjectType<T>;
+export class InsertImpl<R extends IRecord> extends AbstractDelegatingQuery<IInsertQuery<R>> implements IInsertSetStep<R>, IInsertValuesStep<R> {
+    private into: ITable<R>;
     private fields: Array<IField<any>> ;
-    constructor(connection: ISqlConnection, into: ObjectType<T>) {
+    constructor(connection: ISqlConnection, into: ITable<R>) {
         super(new InsertQueryImpl(connection, into));
         this.into = into;
     }
 
-    public columns(...field: Array<IField<any>>): IInsertValuesStep<T> {
+    public columns(...field: Array<IField<any>>): IInsertValuesStep<R> {
         this.fields = field;
         return this;
     }
@@ -48,7 +50,7 @@ export class InsertImpl<T> extends AbstractDelegatingQuery<IInsertQuery<T>> impl
             throw new SqlBuilderError("sql error");
         }
     }
-    public values(...value: any): IInsertValuesStep<T> {
+    public values(...value: any): IInsertValuesStep<R> {
         if (this.fields.length > 0 && this.fields.length !== value.length) {
             throw new Error("The number of values must match the number of fields");
         }

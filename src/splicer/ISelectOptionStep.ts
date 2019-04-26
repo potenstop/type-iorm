@@ -9,7 +9,8 @@
  */
 import {ISelectFinalStep} from "./ISelectFinalStep";
 import {ISelectUnionStep} from "./ISelectUnionStep";
+import {IRecord} from "./IRecord";
 
-export interface ISelectOptionStep<T> extends ISelectFinalStep<T> {
-    option(var1: string): ISelectUnionStep<T>;
+export interface ISelectOptionStep<R extends IRecord> extends ISelectFinalStep<R> {
+    option(var1: string): ISelectUnionStep<R>;
 }

@@ -15,27 +15,28 @@ import {IChangeResult} from "../IChangeResult";
 import {IQuery} from "../IQuery";
 import {IObjectLiteral} from "../../type/IObjectLiteral";
 import {IContext} from "../IContext";
+import {IRecord} from "../IRecord";
 
-export class DeleteImpl<T> implements IDeleteWhereStep<T>, IDeleteConditionStep<T> {
-    public and(condition: ICondition): IDeleteConditionStep<T>;
-    public and(sql: string): IDeleteConditionStep<T>;
-    public and(sql: string, args: IObjectLiteral): IDeleteConditionStep<T>;
-    public and(condition: ICondition | string, args?: IObjectLiteral): IDeleteConditionStep<T> {
+export class DeleteImpl<R extends IRecord> implements IDeleteWhereStep<R>, IDeleteConditionStep<R> {
+    public and(condition: ICondition): IDeleteConditionStep<R>;
+    public and(sql: string): IDeleteConditionStep<R>;
+    public and(sql: string, args: IObjectLiteral): IDeleteConditionStep<R>;
+    public and(condition: ICondition | string, args?: IObjectLiteral): IDeleteConditionStep<R> {
         return undefined;
     }
 
-    public andExists(select: ISelect<any>): IDeleteConditionStep<T> {
+    public andExists(select: ISelect<any>): IDeleteConditionStep<R> {
         return undefined;
     }
 
-    public andNot(condition: ICondition): IDeleteConditionStep<T>;
-    public andNot(sql: string): IDeleteConditionStep<T>;
-    public andNot(sql: string, args: IObjectLiteral): IDeleteConditionStep<T>;
-    public andNot(condition: ICondition | string, args?: IObjectLiteral): IDeleteConditionStep<T> {
+    public andNot(condition: ICondition): IDeleteConditionStep<R>;
+    public andNot(sql: string): IDeleteConditionStep<R>;
+    public andNot(sql: string, args: IObjectLiteral): IDeleteConditionStep<R>;
+    public andNot(condition: ICondition | string, args?: IObjectLiteral): IDeleteConditionStep<R> {
         return undefined;
     }
 
-    public andNotExists(select: ISelect<any>): IDeleteConditionStep<T> {
+    public andNotExists(select: ISelect<any>): IDeleteConditionStep<R> {
         return undefined;
     }
 
@@ -63,25 +64,25 @@ export class DeleteImpl<T> implements IDeleteWhereStep<T>, IDeleteConditionStep<
         return 0;
     }
 
-    public or(condition: IDeleteConditionStep<T>): IDeleteConditionStep<T>;
-    public or(sql: string): IDeleteConditionStep<T>;
-    public or(sql: string, args: IObjectLiteral): IDeleteConditionStep<T>;
-    public or(condition: IDeleteConditionStep<T> | string, args?: IObjectLiteral): IDeleteConditionStep<T> {
+    public or(condition: IDeleteConditionStep<R>): IDeleteConditionStep<R>;
+    public or(sql: string): IDeleteConditionStep<R>;
+    public or(sql: string, args: IObjectLiteral): IDeleteConditionStep<R>;
+    public or(condition: IDeleteConditionStep<R> | string, args?: IObjectLiteral): IDeleteConditionStep<R> {
         return undefined;
     }
 
-    public orExists(select: ISelect<any>): IDeleteConditionStep<T> {
+    public orExists(select: ISelect<any>): IDeleteConditionStep<R> {
         return undefined;
     }
 
-    public orNot(condition: ICondition): IDeleteConditionStep<T>;
-    public orNot(sql: string): IDeleteConditionStep<T>;
-    public orNot(sql: string, args: IObjectLiteral): IDeleteConditionStep<T>;
-    public orNot(condition: ICondition | string, args?: IObjectLiteral): IDeleteConditionStep<T> {
+    public orNot(condition: ICondition): IDeleteConditionStep<R>;
+    public orNot(sql: string): IDeleteConditionStep<R>;
+    public orNot(sql: string, args: IObjectLiteral): IDeleteConditionStep<R>;
+    public orNot(condition: ICondition | string, args?: IObjectLiteral): IDeleteConditionStep<R> {
         return undefined;
     }
 
-    public orNotExists(select: ISelect<any>): IDeleteConditionStep<T> {
+    public orNotExists(select: ISelect<any>): IDeleteConditionStep<R> {
         return undefined;
     }
 
@@ -89,11 +90,11 @@ export class DeleteImpl<T> implements IDeleteWhereStep<T>, IDeleteConditionStep<
         return undefined;
     }
 
-    public whereExists(select: ISelect<T>): IDeleteConditionStep<T> {
+    public whereExists(select: ISelect<R>): IDeleteConditionStep<R> {
         return undefined;
     }
 
-    public whereNotExists(select: ISelect<T>): IDeleteConditionStep<T> {
+    public whereNotExists(select: ISelect<R>): IDeleteConditionStep<R> {
         return undefined;
     }
 
@@ -105,10 +106,10 @@ export class DeleteImpl<T> implements IDeleteWhereStep<T>, IDeleteConditionStep<
         return false;
     }
 
-    public where(...condition: ICondition[]): IDeleteConditionStep<T>;
-    public where(sql: string): IDeleteConditionStep<T>;
-    public where(sql: string, args: IObjectLiteral): IDeleteConditionStep<T>;
-    public where(...condition: Array<ICondition | string | IObjectLiteral>): IDeleteConditionStep<T> {
+    public where(...condition: ICondition[]): IDeleteConditionStep<R>;
+    public where(sql: string): IDeleteConditionStep<R>;
+    public where(sql: string, args: IObjectLiteral): IDeleteConditionStep<R>;
+    public where(...condition: Array<ICondition | string | IObjectLiteral>): IDeleteConditionStep<R> {
         return undefined;
     }
 

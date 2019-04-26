@@ -5,6 +5,8 @@ import {ObjectType} from "../type/ObjectType";
 import {IInsertSetStep} from "../splicer/IInsertSetStep";
 import {IUpdateSetStep} from "../splicer/IUpdateSetStep";
 import {IDeleteWhereStep} from "../splicer/IDeleteWhereStep";
+import {IRecord} from "../splicer/IRecord";
+import {ITable} from "../splicer/ITable";
 /**
  *
  * 功能描述:
@@ -21,16 +23,16 @@ export class DSL {
     private static dsl(connection?: ISqlConnection) {
         return DSL.using(connection);
     }
-    public static select<T>(...field: Array<IField<T>>) {
+    public static select<R extends IRecord>(...field: Array<IField<R>>) {
         return DSL.dsl().select(...field);
     }
-    public static insertInto<T>(table: ObjectType<T>): IInsertSetStep<T> {
+    public static insertInto<R extends IRecord>(table: ITable<R>): IInsertSetStep<R> {
         return DSL.dsl().insertInto(table);
     }
-    public static update<T>(table: ObjectType<T>): IUpdateSetStep<T> {
+    public static update<R extends IRecord>(table: ITable<R>): IUpdateSetStep<R> {
         return DSL.dsl().update(table);
     }
-    public static delete<T>(table: ObjectType<T>): IDeleteWhereStep<T> {
+    public static delete<R extends IRecord>(table: ITable<R>): IDeleteWhereStep<R> {
         return DSL.dsl().delete(table);
     }
 }

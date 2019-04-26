@@ -29,34 +29,35 @@ import {IQuery} from "../IQuery";
 import {IResult} from "../IResult";
 import {IObjectLiteral} from "../../type/IObjectLiteral";
 import {IContext} from "../IContext";
+import {IRecord} from "../IRecord";
 
-export class SelectImpl<T> implements ISelectSelectStep<T>, ISelectOnConditionStep<T> {
-    public and(condition: ICondition): ISelectOnConditionStep<T>;
-    public and(sql: string): ISelectOnConditionStep<T>;
-    public and(sql: string, args: IObjectLiteral): ISelectOnConditionStep<T>;
-    public and(condition: ICondition | string, args?: IObjectLiteral): ISelectOnConditionStep<T> {
+export class SelectImpl<R extends IRecord> implements ISelectSelectStep<R>, ISelectOnConditionStep<R> {
+    public and(condition: ICondition): ISelectOnConditionStep<R>;
+    public and(sql: string): ISelectOnConditionStep<R>;
+    public and(sql: string, args: IObjectLiteral): ISelectOnConditionStep<R>;
+    public and(condition: ICondition | string, args?: IObjectLiteral): ISelectOnConditionStep<R> {
         return undefined;
     }
 
-    public andExists(select: ISelect<any>): ISelectOnConditionStep<T> {
+    public andExists(select: ISelect<any>): ISelectOnConditionStep<R> {
         return undefined;
     }
 
-    public andNot(condition: ICondition): ISelectOnConditionStep<T>;
-    public andNot(sql: string): ISelectOnConditionStep<T>;
-    public andNot(sql: string, args: IObjectLiteral): ISelectOnConditionStep<T>;
-    public andNot(condition: ICondition | string, args?: IObjectLiteral): ISelectOnConditionStep<T> {
+    public andNot(condition: ICondition): ISelectOnConditionStep<R>;
+    public andNot(sql: string): ISelectOnConditionStep<R>;
+    public andNot(sql: string, args: IObjectLiteral): ISelectOnConditionStep<R>;
+    public andNot(condition: ICondition | string, args?: IObjectLiteral): ISelectOnConditionStep<R> {
         return undefined;
     }
 
-    public andNotExists(select: ISelect<any>): ISelectOnConditionStep<T> {
+    public andNotExists(select: ISelect<any>): ISelectOnConditionStep<R> {
         return undefined;
     }
 
-    public crossJoin(table: ObjectType<T>): ISelectJoinStep<T>;
-    public crossJoin(sql: string): ISelectJoinStep<T>;
-    public crossJoin(sql: string, args: IObjectLiteral): ISelectJoinStep<T>;
-    public crossJoin(table: ObjectType<T> | string, args?: IObjectLiteral): ISelectJoinStep<T> {
+    public crossJoin(table: ObjectType<R>): ISelectJoinStep<R>;
+    public crossJoin(sql: string): ISelectJoinStep<R>;
+    public crossJoin(sql: string, args: IObjectLiteral): ISelectJoinStep<R>;
+    public crossJoin(table: ObjectType<R> | string, args?: IObjectLiteral): ISelectJoinStep<R> {
         return undefined;
     }
 
@@ -68,44 +69,44 @@ export class SelectImpl<T> implements ISelectSelectStep<T>, ISelectOnConditionSt
         return undefined;
     }
 
-    public fetch(): Array<IResult<T>> {
+    public fetch(): Array<IResult<R>> {
         return undefined;
     }
 
-    public fetchMap(): Map<string, IResult<T>> {
+    public fetchMap(): Map<string, IResult<R>> {
         return undefined;
     }
 
-    public fetchOne(): IResult<T> {
+    public fetchOne(): IResult<R> {
         return undefined;
     }
 
-    public fetchSize(size: number): IResultQuery<T> {
+    public fetchSize(size: number): IResultQuery<R> {
         return undefined;
     }
 
-    public forShare(): ISelectOptionStep<T> {
+    public forShare(): ISelectOptionStep<R> {
         return undefined;
     }
 
-    public from(...table: Array<ObjectType<T>>): ISelectJoinStep<T>;
-    public from(sql: string): ISelectJoinStep<T>;
-    public from(sql: string, args: IObjectLiteral): ISelectJoinStep<T>;
-    public from(...table: Array<ObjectType<T> | string | IObjectLiteral>): ISelectJoinStep<T> {
+    public from(...table: Array<ObjectType<R>>): ISelectJoinStep<R>;
+    public from(sql: string): ISelectJoinStep<R>;
+    public from(sql: string, args: IObjectLiteral): ISelectJoinStep<R>;
+    public from(...table: Array<ObjectType<R> | string | IObjectLiteral>): ISelectJoinStep<R> {
         return undefined;
     }
 
-    public fullJoin(table: ObjectType<T>): ISelectOnStep<T>;
-    public fullJoin(sql: string): ISelectOnStep<T>;
-    public fullJoin(sql: string, args: IObjectLiteral): ISelectOnStep<T>;
-    public fullJoin(table: ObjectType<T> | string, args?: IObjectLiteral): ISelectOnStep<T> {
+    public fullJoin(table: ObjectType<R>): ISelectOnStep<R>;
+    public fullJoin(sql: string): ISelectOnStep<R>;
+    public fullJoin(sql: string, args: IObjectLiteral): ISelectOnStep<R>;
+    public fullJoin(table: ObjectType<R> | string, args?: IObjectLiteral): ISelectOnStep<R> {
         return undefined;
     }
 
-    public fullOutJoin(table: ObjectType<T>): ISelectOnStep<T>;
-    public fullOutJoin(sql: string): ISelectOnStep<T>;
-    public fullOutJoin(sql: string, args: IObjectLiteral): ISelectOnStep<T>;
-    public fullOutJoin(table: ObjectType<T> | string, args?: IObjectLiteral): ISelectOnStep<T> {
+    public fullOutJoin(table: ObjectType<R>): ISelectOnStep<R>;
+    public fullOutJoin(sql: string): ISelectOnStep<R>;
+    public fullOutJoin(sql: string, args: IObjectLiteral): ISelectOnStep<R>;
+    public fullOutJoin(table: ObjectType<R> | string, args?: IObjectLiteral): ISelectOnStep<R> {
         return undefined;
     }
 
@@ -117,7 +118,7 @@ export class SelectImpl<T> implements ISelectSelectStep<T>, ISelectOnConditionSt
         return "";
     }
 
-    public groupBy(...fields: Array<IField<T>>): ISelectHavingStep<T> {
+    public groupBy(...fields: Array<IField<R>>): ISelectHavingStep<R> {
         return undefined;
     }
 
@@ -125,25 +126,25 @@ export class SelectImpl<T> implements ISelectSelectStep<T>, ISelectOnConditionSt
         return 0;
     }
 
-    public having(...condition: ICondition[]): ISelectHavingConditionStep<T>;
-    public having(sql: string): ISelectHavingConditionStep<T>;
-    public having(sql: string, args: IObjectLiteral): ISelectHavingConditionStep<T>;
-    public having(...condition: Array<ICondition | string | IObjectLiteral>): ISelectHavingConditionStep<T> {
+    public having(...condition: ICondition[]): ISelectHavingConditionStep<R>;
+    public having(sql: string): ISelectHavingConditionStep<R>;
+    public having(sql: string, args: IObjectLiteral): ISelectHavingConditionStep<R>;
+    public having(...condition: Array<ICondition | string | IObjectLiteral>): ISelectHavingConditionStep<R> {
         return undefined;
     }
 
-    public hint(hint: string): ISelectFromStep<T> {
+    public hint(hint: string): ISelectFromStep<R> {
         return undefined;
     }
 
-    public innerJoin(table: ObjectType<T>): ISelectOnStep<T>;
-    public innerJoin(sql: string): ISelectOnStep<T>;
-    public innerJoin(sql: string, args: IObjectLiteral): ISelectOnStep<T>;
-    public innerJoin(table: ObjectType<T> | string, args?: IObjectLiteral): ISelectOnStep<T> {
+    public innerJoin(table: ObjectType<R>): ISelectOnStep<R>;
+    public innerJoin(sql: string): ISelectOnStep<R>;
+    public innerJoin(sql: string, args: IObjectLiteral): ISelectOnStep<R>;
+    public innerJoin(table: ObjectType<R> | string, args?: IObjectLiteral): ISelectOnStep<R> {
         return undefined;
     }
 
-    public into(table: ObjectType<T>): ISelectIntoStep<T> {
+    public into(table: ObjectType<R>): ISelectIntoStep<R> {
         return undefined;
     }
 
@@ -151,106 +152,106 @@ export class SelectImpl<T> implements ISelectSelectStep<T>, ISelectOnConditionSt
         return false;
     }
 
-    public join(table: ObjectType<T>): ISelectOnStep<T>;
-    public join(sql: string): ISelectOnStep<T>;
-    public join(sql: string, args: IObjectLiteral): ISelectOnStep<T>;
-    public join(table: ObjectType<T> | string, args?: IObjectLiteral): ISelectOnStep<T> {
+    public join(table: ObjectType<R>): ISelectOnStep<R>;
+    public join(sql: string): ISelectOnStep<R>;
+    public join(sql: string, args: IObjectLiteral): ISelectOnStep<R>;
+    public join(table: ObjectType<R> | string, args?: IObjectLiteral): ISelectOnStep<R> {
         return undefined;
     }
 
-    public leftJoin(table: ObjectType<T>): ISelectOnStep<T>;
-    public leftJoin(sql: string): ISelectOnStep<T>;
-    public leftJoin(sql: string, args: IObjectLiteral): ISelectOnStep<T>;
-    public leftJoin(table: ObjectType<T> | string, args?: IObjectLiteral): ISelectOnStep<T> {
+    public leftJoin(table: ObjectType<R>): ISelectOnStep<R>;
+    public leftJoin(sql: string): ISelectOnStep<R>;
+    public leftJoin(sql: string, args: IObjectLiteral): ISelectOnStep<R>;
+    public leftJoin(table: ObjectType<R> | string, args?: IObjectLiteral): ISelectOnStep<R> {
         return undefined;
     }
 
-    public leftOutJoin(table: ObjectType<T>): ISelectOnStep<T>;
-    public leftOutJoin(sql: string): ISelectOnStep<T>;
-    public leftOutJoin(sql: string, args: IObjectLiteral): ISelectOnStep<T>;
-    public leftOutJoin(table: ObjectType<T> | string, args?: IObjectLiteral): ISelectOnStep<T> {
+    public leftOutJoin(table: ObjectType<R>): ISelectOnStep<R>;
+    public leftOutJoin(sql: string): ISelectOnStep<R>;
+    public leftOutJoin(sql: string, args: IObjectLiteral): ISelectOnStep<R>;
+    public leftOutJoin(table: ObjectType<R> | string, args?: IObjectLiteral): ISelectOnStep<R> {
         return undefined;
     }
 
-    public limit(offset: number, numberOfRows: number): ISelectForUpdateStep<T>;
-    public limit(offset: number): ISelectForUpdateStep<T>;
-    public limit(offset: number, numberOfRows?: number): ISelectForUpdateStep<T> {
+    public limit(offset: number, numberOfRows: number): ISelectForUpdateStep<R>;
+    public limit(offset: number): ISelectForUpdateStep<R>;
+    public limit(offset: number, numberOfRows?: number): ISelectForUpdateStep<R> {
         return undefined;
     }
 
-    public maxRows(size: number): IResultQuery<T> {
+    public maxRows(size: number): IResultQuery<R> {
         return undefined;
     }
 
-    public option(var1: string): ISelectUnionStep<T> {
+    public option(var1: string): ISelectUnionStep<R> {
         return undefined;
     }
 
-    public or(condition: ICondition): ISelectOnConditionStep<T>;
-    public or(sql: string): ISelectOnConditionStep<T>;
-    public or(sql: string, args: IObjectLiteral): ISelectOnConditionStep<T>;
-    public or(condition: ICondition | string, args?: IObjectLiteral): ISelectOnConditionStep<T> {
+    public or(condition: ICondition): ISelectOnConditionStep<R>;
+    public or(sql: string): ISelectOnConditionStep<R>;
+    public or(sql: string, args: IObjectLiteral): ISelectOnConditionStep<R>;
+    public or(condition: ICondition | string, args?: IObjectLiteral): ISelectOnConditionStep<R> {
         return undefined;
     }
 
-    public orExists(select: ISelect<any>): ISelectOnConditionStep<T> {
+    public orExists(select: ISelect<any>): ISelectOnConditionStep<R> {
         return undefined;
     }
 
-    public orNot(condition: ICondition): ISelectOnConditionStep<T>;
-    public orNot(sql: string): ISelectOnConditionStep<T>;
-    public orNot(sql: string, args: IObjectLiteral): ISelectOnConditionStep<T>;
-    public orNot(condition: ICondition | string, args?: IObjectLiteral): ISelectOnConditionStep<T> {
+    public orNot(condition: ICondition): ISelectOnConditionStep<R>;
+    public orNot(sql: string): ISelectOnConditionStep<R>;
+    public orNot(sql: string, args: IObjectLiteral): ISelectOnConditionStep<R>;
+    public orNot(condition: ICondition | string, args?: IObjectLiteral): ISelectOnConditionStep<R> {
         return undefined;
     }
 
-    public orNotExists(select: ISelect<any>): ISelectOnConditionStep<T> {
+    public orNotExists(select: ISelect<any>): ISelectOnConditionStep<R> {
         return undefined;
     }
 
-    public orderBy(...fields: Array<IField<T>>) {
+    public orderBy(...fields: Array<IField<R>>) {
     }
 
     public queryTimeout(seconds: number): IQuery {
         return undefined;
     }
 
-    public rightJoin(table: ObjectType<T>): ISelectOnStep<T>;
-    public rightJoin(sql: string): ISelectOnStep<T>;
-    public rightJoin(sql: string, args: IObjectLiteral): ISelectOnStep<T>;
-    public rightJoin(table: ObjectType<T> | string, args?: IObjectLiteral): ISelectOnStep<T> {
+    public rightJoin(table: ObjectType<R>): ISelectOnStep<R>;
+    public rightJoin(sql: string): ISelectOnStep<R>;
+    public rightJoin(sql: string, args: IObjectLiteral): ISelectOnStep<R>;
+    public rightJoin(table: ObjectType<R> | string, args?: IObjectLiteral): ISelectOnStep<R> {
         return undefined;
     }
 
-    public rightOutJoin(table: ObjectType<T>): ISelectOnStep<T>;
-    public rightOutJoin(sql: string): ISelectOnStep<T>;
-    public rightOutJoin(sql: string, args: IObjectLiteral): ISelectOnStep<T>;
-    public rightOutJoin(table: ObjectType<T> | string, args?: IObjectLiteral): ISelectOnStep<T> {
+    public rightOutJoin(table: ObjectType<R>): ISelectOnStep<R>;
+    public rightOutJoin(sql: string): ISelectOnStep<R>;
+    public rightOutJoin(sql: string, args: IObjectLiteral): ISelectOnStep<R>;
+    public rightOutJoin(table: ObjectType<R> | string, args?: IObjectLiteral): ISelectOnStep<R> {
         return undefined;
     }
 
-    public select(...fields: IQueryPart[]): ISelectSelectStep<T> {
+    public select(...fields: IQueryPart[]): ISelectSelectStep<R> {
         return undefined;
     }
 
-    public union(select: ISelect<T>) {
+    public union(select: ISelect<R>) {
     }
 
-    public unionAll(select: ISelect<T>) {
+    public unionAll(select: ISelect<R>) {
     }
 
-    public where(...condition: ICondition[]): ISelectConditionStep<T>;
-    public where(sql: string): ISelectConditionStep<T>;
-    public where(sql: string, args: IObjectLiteral): ISelectConditionStep<T>;
-    public where(...condition: Array<ICondition | string | IObjectLiteral>): ISelectConditionStep<T> {
+    public where(...condition: ICondition[]): ISelectConditionStep<R>;
+    public where(sql: string): ISelectConditionStep<R>;
+    public where(sql: string, args: IObjectLiteral): ISelectConditionStep<R>;
+    public where(...condition: Array<ICondition | string | IObjectLiteral>): ISelectConditionStep<R> {
         return undefined;
     }
 
-    public whereExists(select: ISelect<T>): ISelectConditionStep<T> {
+    public whereExists(select: ISelect<R>): ISelectConditionStep<R> {
         return undefined;
     }
 
-    public whereNotExists(select: ISelect<T>): ISelectConditionStep<T> {
+    public whereNotExists(select: ISelect<R>): ISelectConditionStep<R> {
         return undefined;
     }
 

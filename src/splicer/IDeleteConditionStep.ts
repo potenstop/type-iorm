@@ -2,6 +2,7 @@ import {ICondition} from "./ICondition";
 import {ISelect} from "./ISelect";
 import {IDeleteFinalStep} from "./IDeleteFinalStep";
 import {IObjectLiteral} from "../type/IObjectLiteral";
+import {IRecord} from "./IRecord";
 
 /**
  *
@@ -12,26 +13,26 @@ import {IObjectLiteral} from "../type/IObjectLiteral";
  * @author yanshaowen
  * @date 2019/3/21 15:37
  */
-export interface IDeleteConditionStep<T> extends IDeleteFinalStep<T> {
-    and(condition: ICondition): IDeleteConditionStep<T>;
-    and(sql: string): IDeleteConditionStep<T>;
-    and(sql: string, args: IObjectLiteral): IDeleteConditionStep<T>;
+export interface IDeleteConditionStep<R extends IRecord> extends IDeleteFinalStep<R> {
+    and(condition: ICondition): IDeleteConditionStep<R>;
+    and(sql: string): IDeleteConditionStep<R>;
+    and(sql: string, args: IObjectLiteral): IDeleteConditionStep<R>;
 
-    andNot(condition: ICondition): IDeleteConditionStep<T>;
-    andNot(sql: string): IDeleteConditionStep<T>;
-    andNot(sql: string, args: IObjectLiteral): IDeleteConditionStep<T>;
+    andNot(condition: ICondition): IDeleteConditionStep<R>;
+    andNot(sql: string): IDeleteConditionStep<R>;
+    andNot(sql: string, args: IObjectLiteral): IDeleteConditionStep<R>;
 
-    andExists(select: ISelect<any>): IDeleteConditionStep<T>;
-    andNotExists(select: ISelect<any>): IDeleteConditionStep<T>;
+    andExists(select: ISelect<any>): IDeleteConditionStep<R>;
+    andNotExists(select: ISelect<any>): IDeleteConditionStep<R>;
 
-    or(condition: IDeleteConditionStep<T>): IDeleteConditionStep<T>;
-    or(sql: string): IDeleteConditionStep<T>;
-    or(sql: string, args: IObjectLiteral): IDeleteConditionStep<T>;
+    or(condition: IDeleteConditionStep<R>): IDeleteConditionStep<R>;
+    or(sql: string): IDeleteConditionStep<R>;
+    or(sql: string, args: IObjectLiteral): IDeleteConditionStep<R>;
 
-    orNot(condition: ICondition): IDeleteConditionStep<T>;
-    orNot(sql: string): IDeleteConditionStep<T>;
-    orNot(sql: string, args: IObjectLiteral): IDeleteConditionStep<T>;
+    orNot(condition: ICondition): IDeleteConditionStep<R>;
+    orNot(sql: string): IDeleteConditionStep<R>;
+    orNot(sql: string, args: IObjectLiteral): IDeleteConditionStep<R>;
 
-    orExists(select: ISelect<any>): IDeleteConditionStep<T>;
-    orNotExists(select: ISelect<any>): IDeleteConditionStep<T>;
+    orExists(select: ISelect<any>): IDeleteConditionStep<R>;
+    orNotExists(select: ISelect<any>): IDeleteConditionStep<R>;
 }

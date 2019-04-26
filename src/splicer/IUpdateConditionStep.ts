@@ -12,27 +12,28 @@ import {ISelect} from "./ISelect";
 import {ICondition} from "./ICondition";
 import {IObjectLiteral} from "../type/IObjectLiteral";
 import {IField} from "./IField";
+import {IRecord} from "./IRecord";
 
-export interface IUpdateConditionStep<T> extends IUpdateFinalStep<T> {
-    and(condition: ICondition): IUpdateConditionStep<T>;
-    and(sql: string): IUpdateConditionStep<T>;
-    and(sql: string, args: IObjectLiteral): IUpdateConditionStep<T>;
-    and(filed: IField<boolean>): IUpdateConditionStep<T>;
+export interface IUpdateConditionStep<R extends IRecord> extends IUpdateFinalStep<R> {
+    and(condition: ICondition): IUpdateConditionStep<R>;
+    and(sql: string): IUpdateConditionStep<R>;
+    and(sql: string, args: IObjectLiteral): IUpdateConditionStep<R>;
+    and(filed: IField<boolean>): IUpdateConditionStep<R>;
 
-    andNot(condition: ICondition): IUpdateConditionStep<T>;
-    andNot(filed: IField<boolean>): IUpdateConditionStep<T>;
+    andNot(condition: ICondition): IUpdateConditionStep<R>;
+    andNot(filed: IField<boolean>): IUpdateConditionStep<R>;
 
-    andExists(select: ISelect<any>): IUpdateConditionStep<T>;
-    andNotExists(select: ISelect<any>): IUpdateConditionStep<T>;
+    andExists(select: ISelect<any>): IUpdateConditionStep<R>;
+    andNotExists(select: ISelect<any>): IUpdateConditionStep<R>;
 
-    or(condition: ICondition): IUpdateConditionStep<T>;
-    or(sql: string): IUpdateConditionStep<T>;
-    or(sql: string, args: IObjectLiteral): IUpdateConditionStep<T>;
-    or(filed: IField<boolean>): IUpdateConditionStep<T>;
+    or(condition: ICondition): IUpdateConditionStep<R>;
+    or(sql: string): IUpdateConditionStep<R>;
+    or(sql: string, args: IObjectLiteral): IUpdateConditionStep<R>;
+    or(filed: IField<boolean>): IUpdateConditionStep<R>;
 
-    orNot(condition: ICondition): IUpdateConditionStep<T>;
-    orNot(filed: IField<boolean>): IUpdateConditionStep<T>;
+    orNot(condition: ICondition): IUpdateConditionStep<R>;
+    orNot(filed: IField<boolean>): IUpdateConditionStep<R>;
 
-    orExists(select: ISelect<any>): IUpdateConditionStep<T>;
-    orNotExists(select: ISelect<any>): IUpdateConditionStep<T>;
+    orExists(select: ISelect<any>): IUpdateConditionStep<R>;
+    orNotExists(select: ISelect<any>): IUpdateConditionStep<R>;
 }

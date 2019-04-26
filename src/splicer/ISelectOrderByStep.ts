@@ -9,7 +9,8 @@
  */
 import {ISelectLimitStep} from "./ISelectLimitStep";
 import {IField} from "./IField";
+import {IRecord} from "./IRecord";
 
-export interface ISelectOrderByStep<T> extends ISelectLimitStep<T> {
-    orderBy(... fields: Array<IField<T>>);
+export interface ISelectOrderByStep<R extends IRecord> extends ISelectLimitStep<R> {
+    orderBy(... fields: Array<IField<R>>);
 }

@@ -9,8 +9,9 @@
  */
 import {IUpdate} from "./IUpdate";
 import {IChangeResult} from "./IChangeResult";
+import {IRecord} from "./IRecord";
 
-export interface IUpdateFinalStep<T> extends IUpdate<T> {
+export interface IUpdateFinalStep<R extends IRecord> extends IUpdate<R> {
     getInsertId(): number;
     getAffectedRow(): number;
     getResult(): IChangeResult;

@@ -8,7 +8,8 @@
  * @date 2019/3/11 20:42
  */
 import {ISelect} from "./ISelect";
+import {IRecord} from "./IRecord";
 
-export interface ISelectFinalStep<T> extends ISelect<T> {
+export interface ISelectFinalStep<R extends IRecord> extends ISelect<R> {
     getQuery(): string;
 }

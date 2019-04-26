@@ -8,7 +8,8 @@
  * @date 2019/3/20 15:53
  */
 import {ISelect} from "./ISelect";
+import {IRecord} from "./IRecord";
 
-export interface ISelectQuery<T> extends ISelect<T> {
+export interface ISelectQuery<R extends IRecord> extends ISelect<R> {
 
 }

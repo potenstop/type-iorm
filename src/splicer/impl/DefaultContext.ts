@@ -16,6 +16,7 @@ import {AbstractQueryPart} from "./AbstractQueryPart";
 import {ObjectType} from "../../type/ObjectType";
 import {Tool} from "./Tool";
 import {IField} from "../IField";
+import {ITable} from "../ITable";
 
 export class DefaultContext implements IContext {
     private sourceResult: any;
@@ -127,7 +128,7 @@ export class DefaultContext implements IContext {
         return this;
     }
 
-    public visitTable(table: ObjectType<any>): this {
+    public visitTable(table: ITable<any>): this {
         const tableName = Tool.getTableName(table);
         this.sql("`" + tableName + "`");
         return undefined;

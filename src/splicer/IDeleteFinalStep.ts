@@ -9,8 +9,9 @@
  */
 import {IDelete} from "./IDelete";
 import {IChangeResult} from "./IChangeResult";
+import {IRecord} from "./IRecord";
 
-export interface IDeleteFinalStep<T> extends IDelete<T> {
+export interface IDeleteFinalStep<R extends IRecord> extends IDelete<R> {
     getInsertId(): number;
     getAffectedRow(): number;
     getResult(): IChangeResult;

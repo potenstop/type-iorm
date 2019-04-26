@@ -13,14 +13,15 @@ import {IField} from "../IField";
 import {IContext} from "../IContext";
 import {DateUtil} from "../../util/DateUtil";
 import {Tool} from "./Tool";
+import {ITable} from "../ITable";
 
 export class FieldMapsForInsert extends AbstractQueryPart {
-    private table: ObjectType<any>;
+    private table: ITable<any>;
     private tableName: string;
     private values: Map<IField<any>, Object[]>;
     private row: number;
     private isNext: boolean;
-    constructor(table: ObjectType<any>) {
+    constructor(table: ITable<any>) {
         super();
         this.row = 0;
         this.isNext = true;

@@ -10,8 +10,11 @@
 import {FieldImpl} from "./FieldImpl";
 import {IField} from "../IField";
 import {IDataType} from "../IDataType";
+import {IRecord} from "../IRecord";
+import {ITable} from "../ITable";
+import {AbstractNamed} from "./AbstractNamed";
 
-export class AbstractTable {
+export abstract class AbstractTable<R extends IRecord> extends AbstractNamed implements ITable<R> {
     public static createField<T>(dataType: IDataType<T>, name: string): IField<T> {
         return new FieldImpl<T>(dataType, name);
     }

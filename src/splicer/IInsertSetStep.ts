@@ -9,7 +9,8 @@
  */
 import {IField} from "./IField";
 import {IInsertValuesStep} from "./IInsertValuesStep";
+import {IRecord} from "./IRecord";
 
-export interface IInsertSetStep<T> {
-    columns(...field: Array<IField<any>>): IInsertValuesStep<T>;
+export interface IInsertSetStep<R extends IRecord> {
+    columns(...field: Array<IField<any>>): IInsertValuesStep<R>;
 }

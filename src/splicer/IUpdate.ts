@@ -8,7 +8,8 @@
  * @date 2019/3/20 16:02
  */
 import {IQuery} from "./IQuery";
+import {IRecord} from "./IRecord";
 
-export interface IUpdate<T> extends IQuery {
+export interface IUpdate<R extends IRecord> extends IQuery {
 
 }

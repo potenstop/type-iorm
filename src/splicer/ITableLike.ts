@@ -14,7 +14,7 @@ import {IField} from "./IField";
 import {IName} from "./IName";
 import {ITable} from "./ITable";
 
-export interface ITableLike<R extends IRecord> extends IQueryPart{
+export interface ITableLike<R extends IRecord> extends IQueryPart {
     fieldsRow(): IRow;
     field<T>(field: IField<T>): IField<T>;
     field(name: string): IField<any>;

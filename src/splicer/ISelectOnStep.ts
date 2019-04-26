@@ -10,9 +10,10 @@
 import {ICondition} from "./ICondition";
 import {ISelectOnConditionStep} from "./ISelectOnConditionStep";
 import {IObjectLiteral} from "../type/IObjectLiteral";
+import {IRecord} from "./IRecord";
 
-export interface ISelectOnStep<T> {
-    on(...condition: ICondition[]): ISelectOnConditionStep<T>;
-    on(sql: string): ISelectOnConditionStep<T>;
-    on(sql: string, args: IObjectLiteral): ISelectOnConditionStep<T>;
+export interface ISelectOnStep<R extends IRecord> {
+    on(...condition: ICondition[]): ISelectOnConditionStep<R>;
+    on(sql: string): ISelectOnConditionStep<R>;
+    on(sql: string, args: IObjectLiteral): ISelectOnConditionStep<R>;
 }

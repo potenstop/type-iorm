@@ -11,27 +11,28 @@ import {ISelectJoinStep} from "./ISelectJoinStep";
 import {ISelect} from "./ISelect";
 import {ICondition} from "./ICondition";
 import {IObjectLiteral} from "../type/IObjectLiteral";
+import {IRecord} from "./IRecord";
 
-export interface ISelectOnConditionStep<T> extends ISelectJoinStep<T> {
-    and(condition: ICondition): ISelectOnConditionStep<T>;
-    and(sql: string): ISelectOnConditionStep<T>;
-    and(sql: string, args: IObjectLiteral): ISelectOnConditionStep<T>;
+export interface ISelectOnConditionStep<R extends IRecord> extends ISelectJoinStep<R> {
+    and(condition: ICondition): ISelectOnConditionStep<R>;
+    and(sql: string): ISelectOnConditionStep<R>;
+    and(sql: string, args: IObjectLiteral): ISelectOnConditionStep<R>;
 
-    andNot(condition: ICondition): ISelectOnConditionStep<T>;
-    andNot(sql: string): ISelectOnConditionStep<T>;
-    andNot(sql: string, args: IObjectLiteral): ISelectOnConditionStep<T>;
+    andNot(condition: ICondition): ISelectOnConditionStep<R>;
+    andNot(sql: string): ISelectOnConditionStep<R>;
+    andNot(sql: string, args: IObjectLiteral): ISelectOnConditionStep<R>;
 
-    andExists(select: ISelect<any>): ISelectOnConditionStep<T>;
-    andNotExists(select: ISelect<any>): ISelectOnConditionStep<T>;
+    andExists(select: ISelect<any>): ISelectOnConditionStep<R>;
+    andNotExists(select: ISelect<any>): ISelectOnConditionStep<R>;
 
-    or(condition: ICondition): ISelectOnConditionStep<T>;
-    or(sql: string): ISelectOnConditionStep<T>;
-    or(sql: string, args: IObjectLiteral): ISelectOnConditionStep<T>;
+    or(condition: ICondition): ISelectOnConditionStep<R>;
+    or(sql: string): ISelectOnConditionStep<R>;
+    or(sql: string, args: IObjectLiteral): ISelectOnConditionStep<R>;
 
-    orNot(condition: ICondition): ISelectOnConditionStep<T>;
-    orNot(sql: string): ISelectOnConditionStep<T>;
-    orNot(sql: string, args: IObjectLiteral): ISelectOnConditionStep<T>;
+    orNot(condition: ICondition): ISelectOnConditionStep<R>;
+    orNot(sql: string): ISelectOnConditionStep<R>;
+    orNot(sql: string, args: IObjectLiteral): ISelectOnConditionStep<R>;
 
-    orExists(select: ISelect<any>): ISelectOnConditionStep<T>;
-    orNotExists(select: ISelect<any>): ISelectOnConditionStep<T>;
+    orExists(select: ISelect<any>): ISelectOnConditionStep<R>;
+    orNotExists(select: ISelect<any>): ISelectOnConditionStep<R>;
 }

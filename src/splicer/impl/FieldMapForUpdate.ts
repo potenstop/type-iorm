@@ -11,10 +11,11 @@ import {AbstractQueryPartMap} from "./AbstractQueryPartMap";
 import {IField} from "../IField";
 import {IContext} from "../IContext";
 import {ObjectType} from "../../type/ObjectType";
+import {ITable} from "../ITable";
 
 export class FieldMapForUpdate extends AbstractQueryPartMap<IField<any>, IField<any>> {
-    private table0: ObjectType<any>;
-    constructor(table: ObjectType<any>) {
+    private table0: ITable<any>;
+    constructor(table: ITable<any>) {
         super();
         this.table0 = table;
     }

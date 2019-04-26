@@ -8,6 +8,11 @@
  * @date 2019/4/20 18:28
  */
 import {IQueryPart} from "./IQueryPart";
+import {IWindowDefinition} from "./IWindowDefinition";
+import {IWindowSpecification} from "./IWindowSpecification";
+import {ISelect} from "./ISelect";
+import {IRecord} from "./IRecord";
+import {IDerivedColumnList} from "./IDerivedColumnList";
 
 export interface IName extends IQueryPart {
     /**
@@ -66,4 +71,13 @@ export interface IName extends IQueryPart {
      * The qualified name of this SQL identifier.
      */
     getName(): string[];
+
+    as(): IWindowDefinition;
+    as(win: IWindowSpecification): IWindowDefinition;
+    as<R extends IRecord>(select: ISelect<R>): IWindowDefinition;
+
+    fields(...fields: string[]): IDerivedColumnList;
+    fields(...names: IName[]): IDerivedColumnList;
+
+    equalsIgnoreCase(name: IName): boolean;
 }

@@ -9,7 +9,8 @@
  */
 import {ISelectIntoStep} from "./ISelectIntoStep";
 import {IQueryPart} from "./IQueryPart";
+import {IRecord} from "./IRecord";
 
-export interface ISelectSelectStep<T> extends ISelectIntoStep<T> {
-    select(...fields: IQueryPart[]): ISelectSelectStep<T>;
+export interface ISelectSelectStep<R extends IRecord> extends ISelectIntoStep<R> {
+    select(...fields: IQueryPart[]): ISelectSelectStep<R>;
 }

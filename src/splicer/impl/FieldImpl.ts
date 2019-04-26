@@ -11,6 +11,7 @@ import {IField} from "../IField";
 import {ICondition} from "../ICondition";
 import {IDataType} from "../IDataType";
 import {IConverter} from "../IConverter";
+import {IName} from "../IName";
 
 export class FieldImpl<T> implements IField<T> {
     private name: string;
@@ -50,6 +51,18 @@ export class FieldImpl<T> implements IField<T> {
     }
 
     public getType(): Object {
+        return undefined;
+    }
+
+    public getComment(): string {
+        return "";
+    }
+
+    public getQualifiedName(): IName {
+        return undefined;
+    }
+
+    public getUnqualifiedName(): IName {
         return undefined;
     }
 }

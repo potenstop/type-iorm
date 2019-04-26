@@ -5,6 +5,8 @@ import {IUpdateFinalStep} from "./IUpdateFinalStep";
 import {IInsertSetStep} from "./IInsertSetStep";
 import {IUpdateSetStep} from "./IUpdateSetStep";
 import {IDeleteWhereStep} from "./IDeleteWhereStep";
+import {IRecord} from "./IRecord";
+import {ITable} from "./ITable";
 
 /**
  *
@@ -17,8 +19,8 @@ import {IDeleteWhereStep} from "./IDeleteWhereStep";
  */
 export interface IDSLContext {
     select(...field: ISelectFieldOrAsterisk[]): ISelectSelectStep<any>;
-    insertInto<T>(table: ObjectType<T>): IInsertSetStep<T>;
-    update<T>(table: ObjectType<T>): IUpdateSetStep<T>;
-    delete<T>(table: ObjectType<T>): IDeleteWhereStep<T>;
+    insertInto<R extends IRecord>(table: ITable<R>): IInsertSetStep<R>;
+    update<R extends IRecord>(table: ITable<R>): IUpdateSetStep<R>;
+    delete<R extends IRecord>(table: ITable<R>): IDeleteWhereStep<R>;
 
 }

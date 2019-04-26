@@ -8,7 +8,8 @@
  * @date 2019/3/20 16:29
  */
 import {IQuery} from "./IQuery";
+import {IRecord} from "./IRecord";
 
-export interface IDelete<T> extends IQuery {
+export interface IDelete<R extends IRecord> extends IQuery {
 
 }

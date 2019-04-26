@@ -10,6 +10,8 @@ import {IDeleteWhereStep} from "../IDeleteWhereStep";
 import {InsertImpl} from "./InsertImpl";
 import {ISqlConnection} from "../../driver/ISqlConnection";
 import {UpdateImpl} from "./UpdateImpl";
+import {IRecord} from "../IRecord";
+import {ITable} from "../ITable";
 
 /**
  *
@@ -26,7 +28,7 @@ export class DefaultDSLContext implements IDSLContext {
         this.connection = connection;
     }
 
-    public insertInto<T>(table: ObjectType<T>): IInsertSetStep<T> {
+    public insertInto<R extends IRecord>(table: ITable<R>): IInsertSetStep<R> {
         return new InsertImpl(this.connection, table);
     }
 
@@ -34,11 +36,11 @@ export class DefaultDSLContext implements IDSLContext {
         return undefined;
     }
 
-    public delete<T>(table: ObjectType<T>): IDeleteWhereStep<T> {
+    public delete<R extends IRecord>(table: ITable<R>): IDeleteWhereStep<R> {
         return undefined;
     }
 
-    public update<T>(table: ObjectType<T>): IUpdateSetStep<T> {
+    public update<R extends IRecord>(table: ITable<R>): IUpdateSetStep<R> {
         return new UpdateImpl(this.connection, table);
     }
 

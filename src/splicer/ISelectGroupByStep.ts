@@ -9,7 +9,8 @@
  */
 import {ISelectHavingStep} from "./ISelectHavingStep";
 import {IField} from "./IField";
+import {IRecord} from "./IRecord";
 
-export interface ISelectGroupByStep<T> extends ISelectHavingStep<T> {
-    groupBy(...fields: Array<IField<T>>): ISelectHavingStep<T>;
+export interface ISelectGroupByStep<R extends IRecord> extends ISelectHavingStep<R> {
+    groupBy(...fields: Array<IField<R>>): ISelectHavingStep<R>;
 }

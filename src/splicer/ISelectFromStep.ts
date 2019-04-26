@@ -11,10 +11,11 @@ import {ISelectWhereStep} from "./ISelectWhereStep";
 import {ObjectType} from "../type/ObjectType";
 import {ISelectJoinStep} from "./ISelectJoinStep";
 import {IObjectLiteral} from "../type/IObjectLiteral";
+import {IRecord} from "./IRecord";
 
-export interface ISelectFromStep<T> extends ISelectWhereStep<T> {
-    from(...table: Array<ObjectType<T>>): ISelectJoinStep<T>;
-    from(sql: string): ISelectJoinStep<T>;
-    from(sql: string, args: IObjectLiteral): ISelectJoinStep<T>;
-    hint(hint: string): ISelectFromStep<T>;
+export interface ISelectFromStep<R extends IRecord> extends ISelectWhereStep<R> {
+    from(...table: Array<ObjectType<R>>): ISelectJoinStep<R>;
+    from(sql: string): ISelectJoinStep<R>;
+    from(sql: string, args: IObjectLiteral): ISelectJoinStep<R>;
+    hint(hint: string): ISelectFromStep<R>;
 }

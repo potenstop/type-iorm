@@ -9,8 +9,9 @@
  */
 import {IQueryPart} from "./IQueryPart";
 import {IResultQuery} from "./IResultQuery";
+import {IRecord} from "./IRecord";
 
-export interface ISelect<T> extends IResultQuery<T> {
-    union(select: ISelect<T>);
-    unionAll(select: ISelect<T>);
+export interface ISelect<R extends IRecord> extends IResultQuery<R> {
+    union(select: ISelect<R>);
+    unionAll(select: ISelect<R>);
 }

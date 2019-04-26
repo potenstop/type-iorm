@@ -9,7 +9,8 @@
  */
 import {IInsert} from "./IInsert";
 import {IChangeResult} from "./IChangeResult";
-export interface IInsertFinalStep<T> extends IInsert<T> {
+import {IRecord} from "./IRecord";
+export interface IInsertFinalStep<R extends IRecord> extends IInsert<R> {
     getInsertId(): Promise<number>;
     getAffectedRow(): Promise<number>;
     getResult(): Promise<IChangeResult>;

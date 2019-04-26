@@ -8,7 +8,8 @@
  * @date 2019/3/13 9:41
  */
 import {ISelectOptionStep} from "./ISelectOptionStep";
+import {IRecord} from "./IRecord";
 
-export interface ISelectForUpdateStep<T> extends ISelectOptionStep<T> {
-    forShare(): ISelectOptionStep<T>;
+export interface ISelectForUpdateStep<R extends IRecord> extends ISelectOptionStep<R> {
+    forShare(): ISelectOptionStep<R>;
 }

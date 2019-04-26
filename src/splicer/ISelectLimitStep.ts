@@ -8,8 +8,9 @@
  * @date 2019/3/11 20:40
  */
 import {ISelectForUpdateStep} from "./ISelectForUpdateStep";
+import {IRecord} from "./IRecord";
 
-export interface ISelectLimitStep<T> extends ISelectForUpdateStep<T> {
-    limit(offset: number, numberOfRows: number): ISelectForUpdateStep<T>;
-    limit(offset: number): ISelectForUpdateStep<T>;
+export interface ISelectLimitStep<R extends IRecord> extends ISelectForUpdateStep<R> {
+    limit(offset: number, numberOfRows: number): ISelectForUpdateStep<R>;
+    limit(offset: number): ISelectForUpdateStep<R>;
 }

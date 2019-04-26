@@ -13,9 +13,11 @@ import {IField} from "../IField";
 import {IResult} from "../IResult";
 import {ObjectType} from "../../type/ObjectType";
 import {ISqlConnection} from "../../driver/ISqlConnection";
+import {IRecord} from "../IRecord";
+import {ITable} from "../ITable";
 
-export abstract class AbstractStoreQuery<T> extends AbstractDMLQuery<T> implements IStoreQuery<T> {
-    constructor(connection: ISqlConnection, table: ObjectType<T>) {
+export abstract class AbstractStoreQuery<R extends IRecord> extends AbstractDMLQuery<R> implements IStoreQuery<R> {
+    constructor(connection: ISqlConnection, table: ITable<R>) {
         super(connection, table);
     }
     protected abstract getValues(): Map<IField<any>, Object>;

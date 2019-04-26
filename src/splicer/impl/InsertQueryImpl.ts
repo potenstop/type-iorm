@@ -16,20 +16,22 @@ import {FieldMapsForInsert} from "./FieldMapsForInsert";
 import {IContext} from "../IContext";
 import {ISqlConnection} from "../../driver/ISqlConnection";
 import {Keywords} from "./Keywords";
+import {IRecord} from "../IRecord";
+import {ITable} from "../ITable";
 
-export class InsertQueryImpl<T> extends AbstractStoreQuery<T> implements IInsertQuery<T> {
+export class InsertQueryImpl<R extends IRecord> extends AbstractStoreQuery<R> implements IInsertQuery<R> {
     private insertMaps: FieldMapsForInsert;
-    private table0: ObjectType<T>;
-    constructor(connection: ISqlConnection, into: ObjectType<T>) {
+    private table0: ITable<R>;
+    constructor(connection: ISqlConnection, into: ITable<R>) {
         super(connection, into);
         this.table0 = into;
         this.insertMaps = new FieldMapsForInsert(into);
     }
 
-    public addValueForUpdate(field: IField<T>, value: T): void;
-    public addValueForUpdate(field: IField<T>, value: IField<T>): void;
+    public addValueForUpdate(field: IField<R>, value: R): void;
+    public addValueForUpdate(field: IField<R>, value: IField<R>): void;
     public addValueForUpdate(map: Map<any, any>): void;
-    public addValueForUpdate(field: IField<T> | Map<any, any>, value?: T | IField<T>): void {
+    public addValueForUpdate(field: IField<R> | Map<any, any>, value?: R | IField<R>): void {
     }
 
     public setSelect(fields: Array<IField<any>>, select: ISelect<any>): void {

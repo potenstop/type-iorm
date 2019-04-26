@@ -9,7 +9,8 @@
  */
 import {IUpdateSetStep} from "./IUpdateSetStep";
 import {IUpdateWhereStep} from "./IUpdateWhereStep";
+import {IRecord} from "./IRecord";
 
-export interface IUpdateSetMoreStep<T> extends IUpdateSetStep<T>, IUpdateWhereStep<T> {
+export interface IUpdateSetMoreStep<R extends IRecord> extends IUpdateSetStep<R>, IUpdateWhereStep<R> {
 
 }

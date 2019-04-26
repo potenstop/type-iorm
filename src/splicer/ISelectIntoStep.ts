@@ -9,7 +9,8 @@
  */
 import {ISelectFromStep} from "./ISelectFromStep";
 import {ObjectType} from "../type/ObjectType";
+import {IRecord} from "./IRecord";
 
-export interface ISelectIntoStep<T> extends ISelectFromStep<T> {
-    into(table: ObjectType<T>): ISelectIntoStep<T>;
+export interface ISelectIntoStep<R extends IRecord> extends ISelectFromStep<R> {
+    into(table: ObjectType<R>): ISelectIntoStep<R>;
 }

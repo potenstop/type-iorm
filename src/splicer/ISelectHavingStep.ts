@@ -11,9 +11,10 @@ import {ISelectOrderByStep} from "./ISelectOrderByStep";
 import {ICondition} from "./ICondition";
 import {ISelectHavingConditionStep} from "./ISelectHavingConditionStep";
 import {IObjectLiteral} from "../type/IObjectLiteral";
+import {IRecord} from "./IRecord";
 
-export interface ISelectHavingStep<T> extends ISelectOrderByStep<T> {
-    having(...condition: ICondition[]): ISelectHavingConditionStep<T>;
-    having(sql: string): ISelectHavingConditionStep<T>;
-    having(sql: string, args: IObjectLiteral): ISelectHavingConditionStep<T>;
+export interface ISelectHavingStep<R extends IRecord> extends ISelectOrderByStep<R> {
+    having(...condition: ICondition[]): ISelectHavingConditionStep<R>;
+    having(sql: string): ISelectHavingConditionStep<R>;
+    having(sql: string, args: IObjectLiteral): ISelectHavingConditionStep<R>;
 }
