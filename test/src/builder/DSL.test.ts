@@ -12,17 +12,16 @@ dataSource.build();
 describe("测试 DSL", () => {
     it("select", async () => {
         const connection = await dataSource.getConnection();
-        ShellTask.SHELL_TASK_ID.eq(1);
-        const iResult = DSL.select(ShellTask.SHELL_TASK_ID)
+        const iResult = DSL.select()
             .from(ShellTask)
-            .where(ShellTask.SHELL_TASK_ID.eq(1))
-            .and(ShellTask.CREATE_TIME.eq(new Date("1111"))).fetchOne();
+            .where(ShellTask.SHELL_TASK.SHELL_TASK_ID.eq(1))
+            .and(ShellTask.SHELL_TASK.CREATE_TIME.eq(new Date("1111"))).fetchOne();
     });
     it("insert", async () => {
         const connection = await dataSource.getConnection();
         const iChangeResult = await DSL.using(connection)
-            .insertInto(ShellTask)
-            .columns(ShellTask.CREATE_TIME, ShellTask.SHELL_TEMPLATE_ID)
+            .insertInto(ShellTask.SHELL_TASK)
+            .columns(ShellTask.SHELL_TASK.CREATE_TIME, ShellTask.SHELL_TASK.SHELL_TEMPLATE_ID)
             .values(new Date(), 1)
             .values(new Date(), 2)
             .values(new Date(), 3)
@@ -32,14 +31,14 @@ describe("测试 DSL", () => {
     it("update", async () => {
         const connection = await dataSource.getConnection();
         await DSL.using(connection)
-            .update(ShellTask)
-            .set(ShellTask.CREATE_TIME, new Date())
-            .where(ShellTask.SHELL_TEMPLATE_ID.eq(1))
+            .update(ShellTask.SHELL_TASK)
+            .set(ShellTask.SHELL_TASK.CREATE_TIME, new Date())
+            .where(ShellTask.SHELL_TASK.SHELL_TEMPLATE_ID.eq(1))
             .getAffectedRow();
 
     });
     it("delete", async () => {
-       await DSL.delete(ShellTask).where().getAffectedRow();
+       await DSL.delete(ShellTask.SHELL_TASK).where().getAffectedRow();
     });
     it("buff", async () => {
         /*const buf5 = Buffer.from("tést");

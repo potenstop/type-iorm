@@ -83,5 +83,4 @@ export abstract class AbstractName extends AbstractQueryPart implements IName {
     public abstract unqualifiedName(): IName;
 
     public abstract unquotedName(): IName;
-
 }

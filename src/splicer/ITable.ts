@@ -17,15 +17,18 @@ import {ITableOptionalOnStep} from "./ITableOptionalOnStep";
 import {ITableOnStep} from "./ITableOnStep";
 import {ISQL} from "./ISQL";
 import {IObjectLiteral} from "../type/IObjectLiteral";
+import {IUniqueKey} from "./IUniqueKey";
+import {INamed} from "./INamed";
 
-export interface ITable<R extends IRecord>  extends ITableLike<R>, IName {
+export interface ITable<R extends IRecord>  extends ITableLike<R>, INamed {
     recordType(): IRecordType<R>;
     getRecordType(): Class<R>;
     getDataType(): IDataType<R>;
     newRecord(): R;
+    getPrimaryKey(): IUniqueKey<R>;
     as(alias: string): ITable<R>;
     as(alias: string, ...fieldAliases: string[]): ITable<R>;
-    as(alais: IName): ITable<R>;
+    as(alias: IName): ITable<R>;
     as(alais: IName, ...fieldAliases: IName[]): ITable<R>;
     as(otherTable: ITable<any>): ITable<R>;
 
@@ -102,6 +105,4 @@ export interface ITable<R extends IRecord>  extends ITableLike<R>, IName {
     leftOuterJoin(sql: string): ITableOnStep<IRecord>;
     leftOuterJoin(sql: string, args: IObjectLiteral): ITableOnStep<IRecord>;
     leftOuterJoin(name: IName): ITableOnStep<IRecord>;
-
-
 }

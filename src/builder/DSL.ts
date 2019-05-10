@@ -7,6 +7,7 @@ import {IUpdateSetStep} from "../splicer/IUpdateSetStep";
 import {IDeleteWhereStep} from "../splicer/IDeleteWhereStep";
 import {IRecord} from "../splicer/IRecord";
 import {ITable} from "../splicer/ITable";
+import {ISelectFieldOrAsterisk} from "../splicer/ISelectFieldOrAsterisk";
 /**
  *
  * 功能描述:
@@ -23,7 +24,7 @@ export class DSL {
     private static dsl(connection?: ISqlConnection) {
         return DSL.using(connection);
     }
-    public static select<R extends IRecord>(...field: Array<IField<R>>) {
+    public static select<R extends IRecord>(...field: ISelectFieldOrAsterisk[]) {
         return DSL.dsl().select(...field);
     }
     public static insertInto<R extends IRecord>(table: ITable<R>): IInsertSetStep<R> {

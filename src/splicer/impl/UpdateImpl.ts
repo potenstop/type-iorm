@@ -24,10 +24,11 @@ import {IUpdateSetMoreStep} from "../IUpdateSetMoreStep";
 import {IObjectLiteral} from "../../type/IObjectLiteral";
 import {Operator} from "./Operator";
 import {IRecord} from "../IRecord";
+import {ITable} from "../ITable";
 
 export class UpdateImpl<R extends IRecord> extends AbstractDelegatingQuery<IUpdateQuery<R>> implements IUpdateSetStep<R>, IUpdateConditionStep<R>, IUpdateWhereStep<R> {
-    private table: ObjectType<R>;
-    constructor(connection: ISqlConnection, table: ObjectType<R>) {
+    private table: ITable<R>;
+    constructor(connection: ISqlConnection, table: ITable<R>) {
         super(new UpdateQueryImpl(connection, table));
         this.table = table;
     }

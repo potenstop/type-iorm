@@ -33,6 +33,7 @@ export interface IRecord {
     get<T>(fileName: IName, type: Class<T>): T;
 
     set<T>(field: IField<T>, value: T): void;
+    set<T>(field: string, value: T): void;
 
     with<T>(field: IField<T>, value: T): IRecord;
     size(): number;

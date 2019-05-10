@@ -16,8 +16,8 @@ export abstract class AbstractNamed extends AbstractQueryPart implements INamed 
     private name: IName;
     private commend: IComment;
 
-    constructor(name: IName, comment: IComment) {
-
+    constructor(name: IName) {
+        super();
     }
     public getComment(): string {
         return ;
