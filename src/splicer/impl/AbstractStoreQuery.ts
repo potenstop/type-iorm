@@ -15,6 +15,7 @@ import {ObjectType} from "../../type/ObjectType";
 import {ISqlConnection} from "../../driver/ISqlConnection";
 import {IRecord} from "../IRecord";
 import {ITable} from "../ITable";
+import {Joint} from "./Joint";
 
 export abstract class AbstractStoreQuery<R extends IRecord> extends AbstractDMLQuery<R> implements IStoreQuery<R> {
     constructor(connection: ISqlConnection, table: ITable<R>) {

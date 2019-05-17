@@ -13,9 +13,9 @@ import {IRow} from "../IRow";
 import {RowImpl} from "./RowImpl";
 import {IName} from "../IName";
 import {ITable} from "../ITable";
-import {Joint} from "./Joint";
 
 export abstract class AbstractRecord implements IRecord {
+
     constructor(fields: Array<IField<any>>);
     constructor(fields: IRow);
     constructor(fields: Array<IField<any>> | IRow) {
@@ -97,6 +97,7 @@ export abstract class AbstractRecord implements IRecord {
     public set<T>(field: string, value: T): void;
     public set<T>(field: string | IField<T>, value: T): void {
         if (typeof field === "string") {
+
         }
     }
 

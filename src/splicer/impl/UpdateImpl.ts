@@ -114,9 +114,9 @@ export class UpdateImpl<R extends IRecord> extends AbstractDelegatingQuery<IUpda
         return this.or(Joint.notExists(select));
     }
 
-    public set<R>(field: IField<R>, value: R): IUpdateSetMoreStep<R>;
+    public set<T>(field: IField<T>, value: T): IUpdateSetMoreStep<R>;
     public set(map: Map<string, any>): IUpdateSetMoreStep<R>;
-    public set<R>(field: IField<R> | Map<string, any>, value?: R): IUpdateSetMoreStep<R> {
+    public set<T>(field: IField<T> | Map<string, any>, value?: T): IUpdateSetMoreStep<R> {
         if (field instanceof Map) {
             this.getDelegate().addValues(field);
         } else {

@@ -26,6 +26,8 @@ import {FieldCondition} from "./FieldCondition";
 import {IName} from "../IName";
 import {UnqualifiedName} from "./UnqualifiedName";
 import {QualifiedName} from "./QualifiedName";
+import {SqlDataType} from "./SqlDataType";
+import {IDataType} from "../IDataType";
 
 export class Joint {
     public static condition(operator: Operator, left: ICondition, right: ICondition): ICondition;
@@ -98,5 +100,15 @@ export class Joint {
     }
     public static getQualifiedName(names: IName[]): IName {
         return new QualifiedName(name);
+    }
+    public static nullSafeDataType<T>(field: IField<T>): IDataType<T> {
+        if (JSHelperUtil.isNullOrUndefined(field)) {
+            return SqlDataType.OTHER;
+        } else {
+            return field.getDataType();
+        }
+    }
+    public static val<T>(value: any, field: IField<T>) {
+        // if ()
     }
 }
